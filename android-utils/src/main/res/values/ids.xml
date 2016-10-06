@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="source_tag" type="id"/>
+    <item name="error_text_watcher" type="id"/>
+    <item name="text_watcher" type="id"/>
+    <item name="children_visibility" type="id"/>
+
+</resources>
