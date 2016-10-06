@@ -47,3 +47,5 @@ or to your `pom.xml` if you're using Maven:
   <type>pom</type>
 </dependency>
 ```
+
+`AndroidUtils` includes `Utils` library
