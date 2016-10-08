@@ -30,12 +30,8 @@ public class MemoryCache<K, V> {
         return key == null ? getKeyNull() : Utils.unwrap(MAP.get(key));
     }
 
-    public <T> T getValue(K key, Class<T> clazz) {
-        return key == null ? (T) getKeyNull() : (T) Utils.unwrap(MAP.get(key));
-    }
-
-    public <T> T getValue(K key) {
-        return key == null ? (T) getKeyNull() : (T) Utils.unwrap(MAP.get(key));
+    public V get(K key, Class<V> clazz) {
+        return key == null ? getKeyNull() : Utils.unwrap(MAP.get(key));
     }
 
     public int size() {

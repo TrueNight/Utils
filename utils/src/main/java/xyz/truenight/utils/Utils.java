@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
@@ -41,7 +42,7 @@ public class Utils {
 
     }
 
-    public static boolean checkBits(int value, int mask) {
+    public static boolean check(int value, int mask) {
         return (value & mask) != 0;
     }
 
@@ -399,17 +400,17 @@ public class Utils {
     /**
      * Returns NULL for null or {@code o.toString()}.
      */
-    public static String nullString(Object o) {
+    public static String toString(Object o) {
         return (o == null) ? null : o.toString();
     }
 
     /**
      * Returns NULL for null or {@code o.toString()}.
      */
-    public static List<String> nullString(Object... o) {
+    public static List<String> toString(Object... o) {
         List<String> strings = new ArrayList<>();
         for (Object item : o) {
-            strings.add(nullString(item));
+            strings.add(toString(item));
         }
         return strings;
     }
@@ -441,5 +442,50 @@ public class Utils {
 
     public static boolean startsWith(String string, String prefix) {
         return isEmpty(string) && isEmpty(prefix) || string != null && string.startsWith(prefix);
+    }
+
+    public static String firstLine(String string) {
+        if (string == null) return null;
+        final int nextLineIndex = string.indexOf('\n');
+        if (nextLineIndex > 0) return string.substring(0, nextLineIndex);
+        return string;
+    }
+
+    public static List<String> splitAndClearEmpty(ArrayList<String> strings, String regularExpression) {
+        ArrayList<String> result = new ArrayList<>();
+        for (String string : strings) {
+            result.addAll(splitAndClearEmpty(string, regularExpression));
+        }
+        return result;
+    }
+
+    public static List<String> splitAndClearEmpty(String string, String regularExpression) {
+        ArrayList<String> strings = new ArrayList<>();
+        final String[] split = string.split(regularExpression);
+        if (split == null || split.length == 0) {
+            strings.add(string);
+        } else {
+            strings.addAll(Arrays.asList(split));
+        }
+
+        Iterator<String> iterator = strings.iterator();
+        while (iterator.hasNext()) {
+            String item = iterator.next();
+            if (item == null || item.trim().length() == 0) {
+                iterator.remove();
+            }
+        }
+
+        return strings;
+    }
+
+    public static int getValue(String intNumber) {
+        int value;
+        try {
+            value = Integer.parseInt(intNumber);
+        } catch (NumberFormatException e) {
+            value = 0;
+        }
+        return value;
     }
 }

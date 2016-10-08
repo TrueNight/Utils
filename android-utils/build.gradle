@@ -23,21 +23,6 @@ android {
     }
 }
 
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.android.support:recyclerview-v7:23.4.0'
-
-    compile 'xyz.truenight.utils:utils:1.0'
-
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testCompile 'junit:junit:4.12'
-}
-
-
 ext {
     bintrayRepo = 'maven'
     bintrayName = 'android-utils'
@@ -51,7 +36,7 @@ ext {
     siteUrl = 'https://github.com/TrueNight/Utils'
     gitUrl = 'https://github.com/TrueNight/Utils.git'
 
-    libraryVersion = '0.7.1'
+    libraryVersion = '0.7.2'
 
     developerId = 'TrueNight'
     developerName = 'Mikhail Frolov'
@@ -61,6 +46,21 @@ ext {
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     allLicenses = ["Apache-2.0"]
 }
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
+
+    compile 'xyz.truenight.utils:utils:1.0.1'
+
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+}
+
 group = publishedGroupId                               // Maven Group ID for the artifact
 
 install {

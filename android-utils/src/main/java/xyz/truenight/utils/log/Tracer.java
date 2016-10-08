@@ -16,6 +16,7 @@
 
 package xyz.truenight.utils.log;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -26,6 +27,7 @@ public class Tracer {
     private Tracer() {
     }
 
+    private static AtomicReference<Class<?>> dumpClass = new AtomicReference<Class<?>>(Dumper.class);
     private static AtomicBoolean isPrintToLog = new AtomicBoolean(true);
     public static final String TRACER = "Tracer";
     private static final int CLIENT_CODE_STACK_INDEX;
@@ -87,6 +89,15 @@ public class Tracer {
         Tracer.isPrintToLog.set(isPrintToLog);
     }
 
+    /**
+     * Class which have static method {@code dump(Object)}
+     *
+     * @param dumperClass dumper
+     */
+    public static void setDumper(Class<?> dumperClass) {
+        Tracer.dumpClass.set(dumperClass);
+    }
+
     public static boolean isEnable() {
         return isPrintToLog.get();
     }
@@ -95,21 +106,21 @@ public class Tracer {
         if (!isPrintToLog.get()) return;
         int depth = 1;
         String steInfo = Tracer.getSteInfo(depth, 0);
-        print(Log.LogLevel.D, steInfo, false, false, null);
+        print(Log.LogLevel.D, steInfo, false, null, null);
     }
 
     public static void print(Object... msg) {
         if (!isPrintToLog.get()) return;
         int depth = 1;
         String steInfo = Tracer.getSteInfo(depth, 0);
-        print(Log.LogLevel.D, steInfo, false, true, msg);
+        print(Log.LogLevel.D, steInfo, false, dumpClass.get(), msg);
     }
 
     public static void print(Object msg) {
         if (!isPrintToLog.get()) return;
         int depth = 1;
         String steInfo = Tracer.getSteInfo(depth, 0);
-        print(Log.LogLevel.D, steInfo, false, false, msg);
+        print(Log.LogLevel.D, steInfo, false, null, msg);
     }
 
     public static void e(String msg) {
@@ -179,10 +190,10 @@ public class Tracer {
 
         int depth = 1;
         String steInfo = Tracer.getSteInfo(depth, 0);
-        print(Log.LogLevel.D, steInfo, false, false, msg);
+        print(Log.LogLevel.D, steInfo, false, null, msg);
     }
 
-    private static void print(Log.LogLevel logLevel, String steInfo, boolean printThreadInfo, boolean dump, Object msg) {
+    private static void print(Log.LogLevel logLevel, String steInfo, boolean printThreadInfo, Class<?> dump, Object msg) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(steInfo);
@@ -194,10 +205,23 @@ public class Tracer {
         }
 
         if (msg != null) {
-            sb.append(" ").append(dump ? Dumper.dump(msg) : msg.toString());
+            sb.append(" ").append(dump != null ? dump(dump, msg) : msg.toString());
         }
 
         logImpl.get().log(logLevel, TRACER, sb.toString());
+    }
+
+    private static String dump(Class<?> dump, Object obj) {
+        try {
+            return (String) dump.getMethod("dump", Object.class).invoke(null, obj);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return "Dump error";
     }
 
     public static Builder config() {
@@ -211,7 +235,7 @@ public class Tracer {
         private boolean wrap;
         private Object msg;
         private Log.LogLevel logLevel = Log.LogLevel.D;
-        private boolean dump;
+        private Class<?> dump = Dumper.class;
         private boolean printCallerChanges;
 
         public Builder threadInfo() {
@@ -242,8 +266,13 @@ public class Tracer {
             return this;
         }
 
-        public Builder dump() {
-            this.dump = true;
+        /**
+         * Class which have static method {@code dump(Object)}
+         *
+         * @param dumperClass dumper
+         */
+        public Builder dump(Class<?> dumperClass) {
+            this.dump = dumperClass;
             return this;
         }
 

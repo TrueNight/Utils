@@ -111,10 +111,10 @@ public class EndlessScrollListener extends RecyclerView.OnScrollListener {
     }
 
     public boolean isManual() {
-        return Utils.checkBits(mCombined, MANUAL);
+        return Utils.check(mCombined, MANUAL);
     }
 
     private boolean isCompleted() {
-        return Utils.checkBits(mCombined, COMPLETED);
+        return Utils.check(mCombined, COMPLETED);
     }
 }

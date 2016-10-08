@@ -77,7 +77,7 @@ public class Palazzo {
     }
 
     public synchronized void submit(Object tag, boolean priority, Runnable runnable) {
-        submitInternal(Utils.nullString(tag), priority, new Task(tag, runnable));
+        submitInternal(Utils.toString(tag), priority, new Task(tag, runnable));
     }
 
     public synchronized void submit(Object tag, Object subTag, Runnable runnable) {
@@ -85,7 +85,7 @@ public class Palazzo {
     }
 
     public synchronized void submit(Object tag, Object subTag, boolean priority, Runnable runnable) {
-        submitInternal(Utils.nullString(tag), priority, new Task(tag, subTag, runnable));
+        submitInternal(Utils.toString(tag), priority, new Task(tag, subTag, runnable));
     }
 
     /**
@@ -349,12 +349,12 @@ public class Palazzo {
         private List<String> mSubTag;
 
         public boolean contains(Object subTag) {
-            return mSubTag.isEmpty() || mSubTag.contains(Utils.nullString(subTag));
+            return mSubTag.isEmpty() || mSubTag.contains(Utils.toString(subTag));
         }
 
         public OnCompletionListener(Object tag, Object... subTags) {
-            mTag = Utils.nullString(tag);
-            mSubTag = Utils.nullString(subTags);
+            mTag = Utils.toString(tag);
+            mSubTag = Utils.toString(subTags);
         }
     }
 
@@ -370,8 +370,8 @@ public class Palazzo {
         }
 
         public Task(Object tag, Object subTag, Runnable runnable) {
-            mTag = Utils.nullString(tag);
-            mSubTag = Utils.nullString(subTag);
+            mTag = Utils.toString(tag);
+            mSubTag = Utils.toString(subTag);
             if (runnable == null) {
                 throw new NullPointerException();
             }
@@ -379,8 +379,8 @@ public class Palazzo {
         }
 
         public Task(Object tag, Object subTag) {
-            mTag = Utils.nullString(tag);
-            mSubTag = Utils.nullString(subTag);
+            mTag = Utils.toString(tag);
+            mSubTag = Utils.toString(subTag);
             mRunnable = null;
         }
 
