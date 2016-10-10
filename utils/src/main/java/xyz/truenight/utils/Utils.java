@@ -231,9 +231,11 @@ public class Utils {
         return list == null ? 0 : list.length;
     }
 
-    public static <T> List<T> add(T what) {
+    public static <T> List<T> add(T... what) {
         List<T> data = new ArrayList<T>();
-        data.add(what);
+        for (T item : what) {
+            data.add(item);
+        }
         return data;
     }
 
@@ -477,6 +479,34 @@ public class Utils {
         }
 
         return strings;
+    }
+
+    public static String[] splitAndClear(String[] strings, String regularExpression) {
+        ArrayList<String> result = new ArrayList<>();
+        for (String string : strings) {
+            result.addAll(splitAndClearEmpty(string, regularExpression));
+        }
+        return result.toArray(new String[result.size()]);
+    }
+
+    public static String[] splitAndClear(String string, String regularExpression) {
+        ArrayList<String> strings = new ArrayList<>();
+        final String[] split = string.split(regularExpression);
+        if (split == null || split.length == 0) {
+            strings.add(string);
+        } else {
+            strings.addAll(Arrays.asList(split));
+        }
+
+        Iterator<String> iterator = strings.iterator();
+        while (iterator.hasNext()) {
+            String item = iterator.next();
+            if (item == null || item.trim().length() == 0) {
+                iterator.remove();
+            }
+        }
+
+        return strings.toArray(new String[strings.size()]);
     }
 
     public static int getValue(String intNumber) {
