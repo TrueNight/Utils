@@ -51,6 +51,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CancellationSignal;
 import android.os.Debug;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Pair;
 import android.view.Menu;
@@ -95,7 +96,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.zip.ZipEntry;
 
 import xyz.truenight.utils.BaseApplication;
-import xyz.truenight.utils.helper.ViewHelper;
 
 public class Dumper {
 
@@ -1828,7 +1828,7 @@ public class Dumper {
                         final TextView textView = (TextView) view;
                         final String text = textView.getText().toString();
                         final float px = textView.getTextSize();
-                        final int dp = ViewHelper.pxToDp(textView.getContext(), px);
+                        final int dp = pxToDp(textView.getContext(), px);
                         sb
                                 .append("text = ").append(ellipsize(text, 10)).append("\n")
                                 .append("text size(dp) = ").append(dp).append("\n")
@@ -1837,6 +1837,11 @@ public class Dumper {
                 }
             }
             return sb.toString().trim();
+        }
+
+        public static int pxToDp(Context context, float px) {
+            final float scale = context.getResources().getDisplayMetrics().density;
+            return Math.round(px / scale);
         }
 
         public static String getResName(Context ctx, int resId) {
@@ -1888,9 +1893,17 @@ public class Dumper {
             final StringBuilder sb = new StringBuilder();
             sb.append("\nactivity: ").append(activity.getClass());
             if (activity instanceof FragmentActivity) {
-                sb.append("\nfragments: ").append(Dumper.dump(ViewHelper.getAllFragments((FragmentActivity) activity)));
+                sb.append("\nfragments: ").append(Dumper.dump(getAllFragments((FragmentActivity) activity)));
             }
             return sb.toString();
+        }
+
+        public static List<Fragment> getAllFragments(FragmentActivity activity) {
+            List<Fragment> allFragments = activity.getSupportFragmentManager().getFragments();
+            if (allFragments == null || allFragments.isEmpty()) {
+                return Collections.emptyList();
+            }
+            return allFragments;
         }
 
         public static String dumpViewHierarchy(Activity activity) {

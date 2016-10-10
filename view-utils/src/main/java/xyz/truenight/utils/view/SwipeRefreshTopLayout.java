@@ -21,8 +21,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import xyz.truenight.utils.helper.ViewHelper;
-import xyz.truenight.utils.log.Log;
 
 /**
  * Created by true
@@ -65,15 +63,9 @@ public class SwipeRefreshTopLayout extends SwipeRefreshLayout {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 boolean use = !ViewHelper.getViewRectWithoutTop(getChildAt(0), mPercentOfView).contains((int) event.getX(), (int) event.getY());
                 super.setEnabled(use && mEnabled);
-                if (DEBUG) {
-                    Log.d(TAG, "onTouchEvent; use " + use + "; Percent: " + mPercentOfView);
-                }
             }
 
         } catch (Exception e) {
-            if (DEBUG) {
-                Log.d(TAG, "onTouchEvent;", e);
-            }
         }
         return super.onTouchEvent(event);
     }
@@ -84,14 +76,8 @@ public class SwipeRefreshTopLayout extends SwipeRefreshLayout {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 boolean use = !ViewHelper.getViewRectWithoutTop(getChildAt(0), mPercentOfView).contains((int) event.getX(), (int) event.getY());
                 super.setEnabled(use && mEnabled);
-                if (DEBUG) {
-                    Log.d(TAG, "onInterceptTouchEvent; use " + use + "; Percent: " + mPercentOfView);
-                }
             }
         } catch (Exception e) {
-            if (DEBUG) {
-                Log.d(TAG, "onInterceptTouchEvent;", e);
-            }
         }
         return super.onInterceptTouchEvent(event);
     }

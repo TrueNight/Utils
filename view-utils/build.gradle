@@ -1,29 +1,5 @@
 apply plugin: 'com.android.library'
 
-ext {
-    bintrayRepo = 'maven'
-    bintrayName = 'android-utils'
-
-    publishedGroupId = 'xyz.truenight.utils'
-    libraryName = 'AndroidUtils'
-    artifact = 'android-utils'
-
-    libraryDescription = 'Utils for android'
-
-    siteUrl = 'https://github.com/TrueNight/Utils'
-    gitUrl = 'https://github.com/TrueNight/Utils.git'
-
-    libraryVersion = '0.7.3'
-
-    developerId = 'TrueNight'
-    developerName = 'Mikhail Frolov'
-    developerEmail = 'true_night@outlook.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
-}
-
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
@@ -45,10 +21,35 @@ android {
     }
 }
 
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'view-utils'
 
+    publishedGroupId = 'xyz.truenight.utils'
+    libraryName = 'ViewUtils'
+    artifact = 'view-utils'
+
+    libraryDescription = 'View utils for android'
+
+    siteUrl = 'https://github.com/TrueNight/Utils'
+    gitUrl = 'https://github.com/TrueNight/Utils.git'
+
+    libraryVersion = '1.0'
+
+    developerId = 'TrueNight'
+    developerName = 'Mikhail Frolov'
+    developerEmail = 'true_night@outlook.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
 
     compile 'xyz.truenight.utils:utils:1.0.1'
 

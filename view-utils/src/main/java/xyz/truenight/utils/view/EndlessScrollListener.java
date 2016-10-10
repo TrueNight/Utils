@@ -25,7 +25,6 @@ package xyz.truenight.utils.view;
 import android.support.v7.widget.RecyclerView;
 
 import xyz.truenight.utils.Utils;
-import xyz.truenight.utils.helper.ViewHelper;
 
 
 public class EndlessScrollListener extends RecyclerView.OnScrollListener {

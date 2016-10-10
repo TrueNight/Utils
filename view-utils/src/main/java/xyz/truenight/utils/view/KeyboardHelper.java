@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.truenight.utils;
+package xyz.truenight.utils.view;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,9 +22,6 @@ import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
-
-import xyz.truenight.utils.helper.ViewHelper;
-import xyz.truenight.utils.log.Tracer;
 
 public class KeyboardHelper {
     private final KeyboardStorage mKeyboardStorage;
@@ -39,7 +36,6 @@ public class KeyboardHelper {
 
     //region internal utils
     private static class ViewCompressionDetector {
-        private static final boolean PRINT_LOG = false;
         private double mMaxCompressionPercent = 0.2;
         private final View mView;
         private OnLayoutCompressionListener mExternalLayoutListener;
@@ -54,11 +50,6 @@ public class KeyboardHelper {
                 final int heightDiff = mView.getRootView().getHeight() - visibleHeight;
                 boolean isHighCompression = heightDiff > mView.getRootView().getHeight() * mMaxCompressionPercent;
                 final int compressionStateDelta = heightDiff - mPrevHeightDiff;
-                if (PRINT_LOG) {
-                    Tracer.print("kb open = " + isHighCompression + " top = " + visibleRect.top
-                            + " bottom = " + visibleRect.bottom + " heightDiff = " + heightDiff
-                            + " compressionStateDelta = " + compressionStateDelta);
-                }
 
                 if (mExternalLayoutListener != null) {
                     mExternalLayoutListener
@@ -93,7 +84,7 @@ public class KeyboardHelper {
         private int keyboardHeightLandscape;
 
         public KeyboardStorage(Context context) {
-            keyboardHeightPortrait = ViewHelper.dpToPx(context, 240);
+            keyboardHeightPortrait = dpToPx(context, 240);
             keyboardHeightLandscape = ViewHelper.getScreenHeight(context) / 2;
         }
 
@@ -166,6 +157,11 @@ public class KeyboardHelper {
         } else {
             return mKeyboardStorage.getKeyboardHeightLandscape();
         }
+    }
+
+    public static int dpToPx(Context context, float dp) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return Math.round(dp * scale);
     }
 
     public int getKeyboardHeightPortrait() {

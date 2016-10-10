@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.truenight.utils.animation;
+package xyz.truenight.utils.view.animation;
 
 import android.view.animation.Animation;
 import android.view.animation.Transformation;

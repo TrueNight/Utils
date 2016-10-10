@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.truenight.utils.helper;
+package xyz.truenight.utils.view;
 
 import android.animation.LayoutTransition;
 import android.annotation.TargetApi;
@@ -68,6 +68,7 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.util.Patterns;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
@@ -95,15 +96,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import xyz.truenight.utils.KeyboardHelper;
-import xyz.truenight.utils.R;
 import xyz.truenight.utils.Utils;
-import xyz.truenight.utils.animation.ShowHideAnimation;
 import xyz.truenight.utils.interfaces.Consumer;
 import xyz.truenight.utils.interfaces.Filter;
 import xyz.truenight.utils.interfaces.Source;
-import xyz.truenight.utils.log.Tracer;
-import xyz.truenight.utils.view.Visibility;
+import xyz.truenight.utils.view.animation.ShowHideAnimation;
 
 
 /**
@@ -1438,7 +1435,7 @@ public final class ViewHelper {
             try {
                 Thread.sleep(stepTime);
             } catch (InterruptedException e) {
-                Tracer.e(e);
+                Log.e("ViewHelper", "e", e);
             }
         }
     }
@@ -1447,7 +1444,7 @@ public final class ViewHelper {
         try {
             Thread.sleep(time);
         } catch (InterruptedException e) {
-            Tracer.e(e);
+            Log.e("ViewHelper", "e", e);
         }
     }
 
