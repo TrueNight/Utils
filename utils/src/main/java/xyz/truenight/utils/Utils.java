@@ -173,6 +173,13 @@ public class Utils {
         return newList;
     }
 
+    public static <T> T[] pullFirst(T[] list) {
+        if (list == null || list.length == 0) {
+            return null;
+        }
+        return Arrays.copyOfRange(list, 1, list.length - 1);
+    }
+
     public static <T> List<T> pullLast(List<T> list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -183,6 +190,13 @@ public class Utils {
         }
 
         return newList;
+    }
+
+    public static <T> T[] pullLast(T[] list) {
+        if (list == null || list.length == 0) {
+            return null;
+        }
+        return Arrays.copyOf(list, list.length - 1);
     }
 
     public static boolean isEmpty(Collection collection) {
@@ -453,6 +467,9 @@ public class Utils {
         return string;
     }
 
+    /**
+     * Splits this strings using the supplied {@code regularExpression}.
+     */
     public static List<String> splitAndClearEmpty(ArrayList<String> strings, String regularExpression) {
         ArrayList<String> result = new ArrayList<>();
         for (String string : strings) {
@@ -461,6 +478,9 @@ public class Utils {
         return result;
     }
 
+    /**
+     * Splits this string using the supplied {@code regularExpression}.
+     */
     public static List<String> splitAndClearEmpty(String string, String regularExpression) {
         ArrayList<String> strings = new ArrayList<>();
         final String[] split = string.split(regularExpression);
@@ -481,6 +501,9 @@ public class Utils {
         return strings;
     }
 
+    /**
+     * Splits this strings using the supplied {@code regularExpression}.
+     */
     public static String[] splitAndClear(String[] strings, String regularExpression) {
         ArrayList<String> result = new ArrayList<>();
         for (String string : strings) {
@@ -489,6 +512,9 @@ public class Utils {
         return result.toArray(new String[result.size()]);
     }
 
+    /**
+     * Splits this string using the supplied {@code regularExpression}.
+     */
     public static String[] splitAndClear(String string, String regularExpression) {
         ArrayList<String> strings = new ArrayList<>();
         final String[] split = string.split(regularExpression);
