@@ -303,13 +303,17 @@ public class Log {
         }
 
         public static Log.LogImplementation getFullLogSet(Context context) {
-            return getFullLogSet(context, 10);
+            return getFullLogSet(context, 10, "log.txt", "old_log.txt");
         }
 
-        public static Log.LogImplementation getFullLogSet(Context context, long mbSize) {
+        public static Log.LogImplementation getFullLogSet(Context context, String logFileName) {
+            return getFullLogSet(context, 10, logFileName + ".txt", logFileName + "_old.txt");
+        }
+
+        public static Log.LogImplementation getFullLogSet(Context context, long mbSize, String logFileName, String oldLogFileName) {
             return new Log.LogSet(
-                    new Log.FileLog(context.getCacheDir(), mbSize),
-                    new Log.FileLog(Environment.getExternalStorageDirectory(), mbSize),
+                    new Log.FileLog(context.getCacheDir(), mbSize, logFileName, oldLogFileName),
+                    new Log.FileLog(Environment.getExternalStorageDirectory(), mbSize, logFileName, oldLogFileName),
                     new Log.AndroidLog()
             );
         }
