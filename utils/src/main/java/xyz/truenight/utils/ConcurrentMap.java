@@ -45,7 +45,7 @@ public class ConcurrentMap<K, V> {
         return key == null ? NULL_KEY.get() : MAP.get(key);
     }
 
-    public <T> T getValue(Object key) {
+    public <T> T get(Object key, Class<T> clazz) {
         return key == null ? (T) NULL_KEY.get() : (T) MAP.get(key);
     }
 

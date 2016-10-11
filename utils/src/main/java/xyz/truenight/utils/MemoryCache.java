@@ -30,8 +30,8 @@ public class MemoryCache<K, V> {
         return key == null ? getKeyNull() : Utils.unwrap(MAP.get(key));
     }
 
-    public V get(K key, Class<V> clazz) {
-        return key == null ? getKeyNull() : Utils.unwrap(MAP.get(key));
+    public <T> T get(Object key, Class<T> clazz) {
+        return (T) (key == null ? getKeyNull() : Utils.unwrap(MAP.get(key)));
     }
 
     public int size() {
@@ -78,7 +78,7 @@ public class MemoryCache<K, V> {
 
     public boolean compare(K key, V value) {
         Object storedValue = get(key);
-        return storedValue == null ? value == null : storedValue.equals(value);
+        return storedValue == null ? value == null : storedValue.equals(reference(value));
     }
 
     private V getKeyNull() {
