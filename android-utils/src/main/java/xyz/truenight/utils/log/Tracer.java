@@ -120,7 +120,7 @@ public class Tracer {
         if (!isPrintToLog.get()) return;
         int depth = 1;
         String steInfo = Tracer.getSteInfo(depth, 0);
-        print(Log.LogLevel.D, steInfo, false, null, msg);
+        print(Log.LogLevel.D, steInfo, false, dumpClass.get(), msg);
     }
 
     public static void e(String msg) {

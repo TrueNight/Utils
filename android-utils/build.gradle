@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/TrueNight/Utils'
     gitUrl = 'https://github.com/TrueNight/Utils.git'
 
-    libraryVersion = '0.7.6'
+    libraryVersion = '0.7.7'
 
     developerId = 'TrueNight'
     developerName = 'Mikhail Frolov'
@@ -47,10 +47,9 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-
     compile 'com.android.support:appcompat-v7:23.4.0'
 
-    compile 'xyz.truenight.utils:utils:1.0.4'
+    compile 'xyz.truenight.utils:utils:1.0.5'
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
