@@ -49,7 +49,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-//    compile 'xyz.truenight.utils:android-utils:0.7.4'
     compile 'org.aspectj:aspectjrt:1.8.9'
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
