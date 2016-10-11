@@ -18,11 +18,16 @@ package xyz.truenight.utils;
 
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("unchecked")
-public class MemoryCache<K, V> {
+public class MemoryCache<K, V> implements Map<K, V> {
     private final ConcurrentHashMap<K, CacheReference<V>> MAP = new ConcurrentHashMap<K, CacheReference<V>>();
     private CacheReference<V> NULL_KEY;
 
@@ -74,6 +79,40 @@ public class MemoryCache<K, V> {
     public void clear() {
         setKeyNull(null);
         MAP.clear();
+    }
+
+    @Override
+    public Set<K> keySet() {
+        HashSet<K> set = new HashSet<>();
+        if (getKeyNull() != null) {
+            set.add(null);
+        }
+        set.addAll(MAP.keySet());
+        return set;
+    }
+
+    @Override
+    public Collection<V> values() {
+        ArrayList<V> list = new ArrayList<>();
+        if (getKeyNull() != null) {
+            list.add(getKeyNull());
+        }
+        for (CacheReference<V> reference : MAP.values()) {
+            list.add(Utils.unwrap(reference));
+        }
+        return list;
+    }
+
+    @Override
+    public Set<Entry<K, V>> entrySet() {
+        HashSet<Entry<K, V>> set = new HashSet<>();
+        if (getKeyNull() != null) {
+            set.add(new AbstractMap.SimpleEntry<K, V>(null, getKeyNull()));
+        }
+        for (Entry<K, CacheReference<V>> referenceEntry : MAP.entrySet()) {
+            set.add(new AbstractMap.SimpleEntry<K, V>(referenceEntry.getKey(), Utils.unwrap(referenceEntry.getValue())));
+        }
+        return set;
     }
 
     public boolean compare(K key, V value) {

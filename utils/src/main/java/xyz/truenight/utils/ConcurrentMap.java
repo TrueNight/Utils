@@ -16,12 +16,17 @@
 
 package xyz.truenight.utils;
 
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicReference;
 
 @SuppressWarnings("unchecked")
-public class ConcurrentMap<K, V> {
+public class ConcurrentMap<K, V> implements Map<K, V> {
     private final ConcurrentHashMap<K, V> MAP = new ConcurrentHashMap<K, V>();
     private final AtomicReference<V> NULL_KEY = new AtomicReference<V>();
 
@@ -40,6 +45,7 @@ public class ConcurrentMap<K, V> {
     public boolean containsValue(Object value) {
         return Utils.equal(NULL_KEY.get(), value) || MAP.containsValue(value);
     }
+
 
     public V get(Object key) {
         return key == null ? NULL_KEY.get() : MAP.get(key);
@@ -72,6 +78,37 @@ public class ConcurrentMap<K, V> {
     public void clear() {
         NULL_KEY.set(null);
         MAP.clear();
+    }
+
+    @Override
+    public Set<K> keySet() {
+        HashSet<K> set = new HashSet<>();
+        if (NULL_KEY.get() != null) {
+            set.add(null);
+        }
+        set.addAll(MAP.keySet());
+        return set;
+    }
+
+    @Override
+    public Collection<V> values() {
+        ArrayList list = new ArrayList();
+        if (NULL_KEY.get() != null) {
+            list.add(NULL_KEY.get());
+        }
+        list.addAll(MAP.values());
+        return list;
+    }
+
+    @Override
+    public Set<Entry<K, V>> entrySet() {
+        HashSet<Entry<K, V>> set = new HashSet<>();
+        if (NULL_KEY.get() != null) {
+            set.add(new AbstractMap.SimpleEntry<K, V>(null, NULL_KEY.get()));
+        }
+
+        set.addAll(MAP.entrySet());
+        return set;
     }
 
     public boolean compare(Object key, V value) {
