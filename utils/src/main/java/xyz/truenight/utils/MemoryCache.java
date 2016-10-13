@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("unchecked")
 public class MemoryCache<K, V> implements Map<K, V> {
-    private final ConcurrentHashMap<K, CacheReference<V>> MAP = new ConcurrentHashMap<K, CacheReference<V>>();
+    private final Map<K, CacheReference<V>> MAP = new ConcurrentHashMap<K, CacheReference<V>>();
     private CacheReference<V> NULL_KEY;
 
     public V get(Object key) {

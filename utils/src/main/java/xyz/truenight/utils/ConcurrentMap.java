@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @SuppressWarnings("unchecked")
 public class ConcurrentMap<K, V> implements Map<K, V> {
-    private final ConcurrentHashMap<K, V> MAP = new ConcurrentHashMap<K, V>();
+    private final Map<K, V> MAP = new ConcurrentHashMap<K, V>();
     private final AtomicReference<V> NULL_KEY = new AtomicReference<V>();
 
     public int size() {
