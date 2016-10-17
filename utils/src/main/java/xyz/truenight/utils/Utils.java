@@ -434,7 +434,7 @@ public class Utils {
     /**
      * Returns NULL for null or {@code o.toString()}.
      */
-    public static List<String> toString(Collection<Object> o) {
+    public static List<String> toString(Collection o) {
         List<String> strings = new ArrayList<>();
         for (Object item : o) {
             strings.add(toString(item));
@@ -463,7 +463,7 @@ public class Utils {
     /**
      * Returns "null" for null or {@code o.toString()}.
      */
-    public static List<String> string(Collection<Object> o) {
+    public static List<String> string(Collection o) {
         List<String> strings = new ArrayList<>();
         for (Object item : o) {
             strings.add(toString(item));
