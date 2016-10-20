@@ -141,6 +141,14 @@ public class Utils {
         return data == null ? null : data.get(position);
     }
 
+    public static boolean contains(Collection<?> data, Object what) {
+        return data != null && data.contains(what);
+    }
+
+    public static boolean containsAll(Collection<?> data, Collection<?> what) {
+        return data != null && data.containsAll(what);
+    }
+
     public static <T> T first(T[] list) {
         return list != null && list.length > 0 ? list[0] : null;
     }
@@ -480,6 +488,50 @@ public class Utils {
 
     public static boolean startsWith(String string, String prefix) {
         return isEmpty(string) && isEmpty(prefix) || string != null && string.startsWith(prefix);
+    }
+
+    public static CharSequence join(Iterable list) {
+        return join("", list);
+    }
+
+    /**
+     * Returns a string containing the tokens joined by delimiters.
+     *
+     * @param tokens an array objects to be joined. Strings will be formed from
+     *               the objects by calling object.toString().
+     */
+    public static String join(CharSequence delimiter, Object[] tokens) {
+        StringBuilder sb = new StringBuilder();
+        boolean firstTime = true;
+        for (Object token : tokens) {
+            if (firstTime) {
+                firstTime = false;
+            } else {
+                sb.append(delimiter);
+            }
+            sb.append(token);
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Returns a string containing the tokens joined by delimiters.
+     *
+     * @param tokens an array objects to be joined. Strings will be formed from
+     *               the objects by calling object.toString().
+     */
+    public static String join(CharSequence delimiter, Iterable tokens) {
+        StringBuilder sb = new StringBuilder();
+        boolean firstTime = true;
+        for (Object token : tokens) {
+            if (firstTime) {
+                firstTime = false;
+            } else {
+                sb.append(delimiter);
+            }
+            sb.append(token);
+        }
+        return sb.toString();
     }
 
     public static String firstLine(String string) {
