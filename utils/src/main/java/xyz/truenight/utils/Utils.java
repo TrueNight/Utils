@@ -141,12 +141,23 @@ public class Utils {
         return data == null ? null : data.get(position);
     }
 
+    public static <T> T get(Map<?, T> data, Object key) {
+        return data == null ? null : data.get(key);
+    }
     public static boolean contains(Collection<?> data, Object what) {
         return data != null && data.contains(what);
     }
 
     public static boolean containsAll(Collection<?> data, Collection<?> what) {
         return data != null && data.containsAll(what);
+    }
+
+    public static boolean containsKey(Map<?, ?> data, Object what) {
+        return data != null && data.containsKey(what);
+    }
+
+    public static boolean containsValue(Map<?, ?> data, Object what) {
+        return data != null && data.containsValue(what);
     }
 
     public static <T> T first(T[] list) {
@@ -500,7 +511,7 @@ public class Utils {
      * @param tokens an array objects to be joined. Strings will be formed from
      *               the objects by calling object.toString().
      */
-    public static String join(CharSequence delimiter, Object[] tokens) {
+    public static String join(CharSequence delimiter, Object... tokens) {
         StringBuilder sb = new StringBuilder();
         boolean firstTime = true;
         for (Object token : tokens) {
