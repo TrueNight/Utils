@@ -173,8 +173,9 @@ public class PermissionRequest {
 
             if (permissionSet.size() > 0) {
                 int id = 42167;
-                while (map.containsKey(id))
-                    id = (int) Math.round(Math.random() * Integer.MAX_VALUE);
+                while (map.containsKey(id)) {
+                    id = Math.abs((int) Math.round(Math.random() * Integer.MAX_VALUE));
+                }
 
                 map.put(id, new ResponseWrapper(response, permissions));
 
