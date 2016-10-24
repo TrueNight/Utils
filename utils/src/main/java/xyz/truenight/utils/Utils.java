@@ -129,21 +129,50 @@ public class Utils {
         return EMPTY;
     }
 
-    public static <T> T get(T[] array, int position) {
-        return array != null && array.length > position ? array[position] : null;
+    public static boolean get(boolean[] array, int position) {
+        return position < 0 || position >= Utils.sizeOf(array) ? false : array[position];
+    }
+
+    public static byte get(byte[] array, int position) {
+        return position < 0 || position >= Utils.sizeOf(array) ? 0 : array[position];
+    }
+
+    public static char get(char[] array, int position) {
+        return position < 0 || position >= Utils.sizeOf(array) ? 0 : array[position];
+    }
+
+    public static double get(double[] array, int position) {
+        return position < 0 || position >= Utils.sizeOf(array) ? 0 : array[position];
     }
 
     public static float get(float[] array, int position) {
-        return array != null && array.length > position ? array[position] : 0;
+        return position < 0 || position >= Utils.sizeOf(array) ? 0 : array[position];
+    }
+
+    public static int get(int[] array, int position) {
+        return position < 0 || position >= Utils.sizeOf(array) ? 0 : array[position];
+    }
+
+    public static long get(long[] array, int position) {
+        return position < 0 || position >= Utils.sizeOf(array) ? 0 : array[position];
+    }
+
+    public static short get(short[] array, int position) {
+        return position < 0 || position >= Utils.sizeOf(array) ? 0 : array[position];
+    }
+
+    public static <T> T get(T[] array, int position) {
+        return position < 0 || position >= Utils.sizeOf(array) ? null : array[position];
     }
 
     public static <T> T get(List<T> data, int position) {
-        return data == null ? null : data.get(position);
+        return position < 0 || position >= Utils.sizeOf(data) ? null : data.get(position);
     }
 
     public static <T> T get(Map<?, T> data, Object key) {
         return data == null ? null : data.get(key);
     }
+
     public static boolean contains(Collection<?> data, Object what) {
         return data != null && data.contains(what);
     }
@@ -256,12 +285,48 @@ public class Utils {
         return string == null ? 0 : string.length();
     }
 
-    public static int sizeOf(Collection<?> list) {
-        return list == null ? 0 : list.size();
+    public static <T> int sizeOf(boolean[] list) {
+        return list == null ? 0 : list.length;
+    }
+
+    public static <T> int sizeOf(byte[] list) {
+        return list == null ? 0 : list.length;
+    }
+
+    public static <T> int sizeOf(char[] list) {
+        return list == null ? 0 : list.length;
+    }
+
+    public static <T> int sizeOf(double[] list) {
+        return list == null ? 0 : list.length;
+    }
+
+    public static <T> int sizeOf(float[] list) {
+        return list == null ? 0 : list.length;
+    }
+
+    public static <T> int sizeOf(int[] list) {
+        return list == null ? 0 : list.length;
+    }
+
+    public static <T> int sizeOf(long[] list) {
+        return list == null ? 0 : list.length;
+    }
+
+    public static <T> int sizeOf(short[] list) {
+        return list == null ? 0 : list.length;
     }
 
     public static <T> int sizeOf(T[] list) {
         return list == null ? 0 : list.length;
+    }
+
+    public static int sizeOf(Collection<?> list) {
+        return list == null ? 0 : list.size();
+    }
+
+    public static int sizeOf(Map<?, ?> map) {
+        return map == null ? 0 : map.size();
     }
 
     public static <T> List<T> add(T... what) {
