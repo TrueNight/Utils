@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
+import xyz.truenight.utils.interfaces.Filter;
+
 import static java.lang.Math.abs;
 
 /**
@@ -387,6 +389,18 @@ public class Utils {
             list.addAll(ts);
         }
         return list;
+    }
+
+    private <T> void filter(Collection<T> data, Filter<T> filter) {
+        if (!Utils.isEmpty(data)) {
+            Iterator<T> iterator = data.iterator();
+            while (iterator.hasNext()) {
+                T item = iterator.next();
+                if (!filter.accept(item)) {
+                    iterator.remove();
+                }
+            }
+        }
     }
 
     /**
