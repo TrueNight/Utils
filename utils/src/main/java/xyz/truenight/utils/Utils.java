@@ -391,7 +391,7 @@ public class Utils {
         return list;
     }
 
-    private <T> void filter(Collection<T> data, Filter<T> filter) {
+    public static <T> void filter(Collection<T> data, Filter<T> filter) {
         if (!Utils.isEmpty(data)) {
             Iterator<T> iterator = data.iterator();
             while (iterator.hasNext()) {
