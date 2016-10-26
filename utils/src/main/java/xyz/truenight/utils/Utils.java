@@ -132,7 +132,7 @@ public class Utils {
     }
 
     public static boolean get(boolean[] array, int position) {
-        return position < 0 || position >= Utils.sizeOf(array) ? false : array[position];
+        return !(position < 0 || position >= Utils.sizeOf(array)) && array[position];
     }
 
     public static byte get(byte[] array, int position) {
@@ -191,28 +191,99 @@ public class Utils {
         return data != null && data.containsValue(what);
     }
 
-    public static <T> T first(T[] list) {
-        return list != null && list.length > 0 ? list[0] : null;
+    public static boolean first(boolean[] list) {
+        return !isEmpty(list) && list[0];
+    }
+
+    public static byte first(byte[] list) {
+        return isEmpty(list) ? 0 : list[0];
+    }
+
+    public static char first(char[] list) {
+        return isEmpty(list) ? 0 : list[0];
+    }
+
+    public static double first(double[] list) {
+        return isEmpty(list) ? 0 : list[0];
+    }
+
+    public static float first(float[] list) {
+        return isEmpty(list) ? 0 : list[0];
+    }
+
+    public static int first(int[] list) {
+        return isEmpty(list) ? 0 : list[0];
+    }
+
+    public static long first(long[] list) {
+        return isEmpty(list) ? 0 : list[0];
+    }
+
+    public static short first(short[] list) {
+        return isEmpty(list) ? 0 : list[0];
+    }
+
+    public static <T> T first(T[] array) {
+        return isEmpty(array) ? null : array[0];
     }
 
     public static <T> T first(List<T> list) {
-        return list != null && !list.isEmpty() ? list.get(0) : null;
+        return isEmpty(list) ? null : list.get(0);
     }
 
     public static <T> T first(Collection<T> list) {
-        return list != null && !list.isEmpty() ? list.iterator().next() : null;
+        return isEmpty(list) ? null : list.iterator().next();
+    }
+
+    public static boolean last(boolean[] list) {
+        return !isEmpty(list) && list[list.length - 1];
+    }
+
+    public static byte last(byte[] list) {
+        return isEmpty(list) ? 0 : list[list.length - 1];
+    }
+
+    public static char last(char[] list) {
+        return isEmpty(list) ? 0 : list[list.length - 1];
+    }
+
+    public static double last(double[] list) {
+        return isEmpty(list) ? 0 : list[list.length - 1];
+    }
+
+    public static float last(float[] list) {
+        return isEmpty(list) ? 0 : list[list.length - 1];
+    }
+
+    public static int last(int[] list) {
+        return isEmpty(list) ? 0 : list[list.length - 1];
+    }
+
+    public static long last(long[] list) {
+        return isEmpty(list) ? 0 : list[list.length - 1];
+    }
+
+    public static short last(short[] list) {
+        return isEmpty(list) ? 0 : list[list.length - 1];
     }
 
     public static <T> T last(T[] list) {
-        return list != null && list.length > 0 ? list[list.length - 1] : null;
+        return isEmpty(list) ? null : list[list.length - 1];
     }
 
     public static <T> T last(List<T> list) {
-        return list != null && !list.isEmpty() ? list.get(list.size() - 1) : null;
+        return isEmpty(list) ? null : list.get(list.size() - 1);
+    }
+
+    public static <T> T[] pullFirst(T[] list) {
+        if (isEmpty(list)) {
+            return null;
+        }
+        return Arrays.copyOfRange(list, 1, list.length - 1);
     }
 
     public static <T> List<T> pullFirst(List<T> list) {
-        if (list == null || list.isEmpty()) {
+        if (isEmpty(list)) {
             return null;
         }
         List<T> newList = new ArrayList<>();
@@ -223,15 +294,15 @@ public class Utils {
         return newList;
     }
 
-    public static <T> T[] pullFirst(T[] list) {
-        if (list == null || list.length == 0) {
+    public static <T> T[] pullLast(T[] list) {
+        if (isEmpty(list)) {
             return null;
         }
-        return Arrays.copyOfRange(list, 1, list.length - 1);
+        return Arrays.copyOf(list, list.length - 1);
     }
 
     public static <T> List<T> pullLast(List<T> list) {
-        if (list == null || list.isEmpty()) {
+        if (isEmpty(list)) {
             return null;
         }
         List<T> newList = new ArrayList<>();
@@ -242,19 +313,44 @@ public class Utils {
         return newList;
     }
 
-    public static <T> T[] pullLast(T[] list) {
-        if (list == null || list.length == 0) {
-            return null;
-        }
-        return Arrays.copyOf(list, list.length - 1);
+    public static boolean isEmpty(boolean[] array) {
+        return array == null || array.length == 0;
+    }
+
+    public static boolean isEmpty(byte[] array) {
+        return array == null || array.length == 0;
+    }
+
+    public static boolean isEmpty(char[] array) {
+        return array == null || array.length == 0;
+    }
+
+    public static boolean isEmpty(double[] array) {
+        return array == null || array.length == 0;
+    }
+
+    public static boolean isEmpty(float[] array) {
+        return array == null || array.length == 0;
+    }
+
+    public static boolean isEmpty(int[] array) {
+        return array == null || array.length == 0;
+    }
+
+    public static boolean isEmpty(long[] array) {
+        return array == null || array.length == 0;
+    }
+
+    public static boolean isEmpty(short[] array) {
+        return array == null || array.length == 0;
+    }
+
+    public static boolean isEmpty(Object[] array) {
+        return array == null || array.length == 0;
     }
 
     public static boolean isEmpty(Collection collection) {
         return collection == null || collection.isEmpty();
-    }
-
-    public static boolean isEmpty(Object[] objects) {
-        return objects == null || objects.length == 0;
     }
 
     public static boolean isEmpty(Map map) {
@@ -269,53 +365,39 @@ public class Utils {
         return objects != null && objects.length == 1;
     }
 
-    public static <K, V> void putAll(Map<K, V> to, Map<K, V> from) {
-        if (to != null && from != null) {
-            to.putAll(from);
-        }
-    }
-
-    public static <T> T unwrap(Reference<T> reference) {
-        return reference == null ? null : reference.get();
-    }
-
-    public static <T> T unwrap(AtomicReference<T> reference) {
-        return reference == null ? null : reference.get();
-    }
-
     public static int sizeOf(String string) {
         return string == null ? 0 : string.length();
     }
 
-    public static <T> int sizeOf(boolean[] list) {
+    public static int sizeOf(boolean[] list) {
         return list == null ? 0 : list.length;
     }
 
-    public static <T> int sizeOf(byte[] list) {
+    public static int sizeOf(byte[] list) {
         return list == null ? 0 : list.length;
     }
 
-    public static <T> int sizeOf(char[] list) {
+    public static int sizeOf(char[] list) {
         return list == null ? 0 : list.length;
     }
 
-    public static <T> int sizeOf(double[] list) {
+    public static int sizeOf(double[] list) {
         return list == null ? 0 : list.length;
     }
 
-    public static <T> int sizeOf(float[] list) {
+    public static int sizeOf(float[] list) {
         return list == null ? 0 : list.length;
     }
 
-    public static <T> int sizeOf(int[] list) {
+    public static int sizeOf(int[] list) {
         return list == null ? 0 : list.length;
     }
 
-    public static <T> int sizeOf(long[] list) {
+    public static int sizeOf(long[] list) {
         return list == null ? 0 : list.length;
     }
 
-    public static <T> int sizeOf(short[] list) {
+    public static int sizeOf(short[] list) {
         return list == null ? 0 : list.length;
     }
 
@@ -371,6 +453,18 @@ public class Utils {
             data.addAll(what);
         }
         return data;
+    }
+
+    public static <K, V> void put(Map<K, V> to, K key, V value) {
+        if (to != null && value != null) {
+            to.put(key, value);
+        }
+    }
+
+    public static <K, V> void putAll(Map<K, V> to, Map<K, V> from) {
+        if (to != null && from != null) {
+            to.putAll(from);
+        }
     }
 
     @SafeVarargs
@@ -444,6 +538,15 @@ public class Utils {
         }
         return a.equals(b);
     }
+
+    public static <T> T unwrap(Reference<T> reference) {
+        return reference == null ? null : reference.get();
+    }
+
+    public static <T> T unwrap(AtomicReference<T> reference) {
+        return reference == null ? null : reference.get();
+    }
+
 
     /**
      * Null-safe equivalent of {@code a.equals(b)}.
@@ -699,13 +802,11 @@ public class Utils {
         return strings.toArray(new String[strings.size()]);
     }
 
-    public static int getValue(String intNumber) {
-        int value;
+    public static int getIntValue(String intNumber) {
         try {
-            value = Integer.parseInt(intNumber);
+            return Integer.parseInt(intNumber);
         } catch (NumberFormatException e) {
-            value = 0;
+            return 0;
         }
-        return value;
     }
 }
