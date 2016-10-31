@@ -18,7 +18,7 @@ ext {
     siteUrl = 'https://github.com/TrueNight/Utils'
     gitUrl = 'https://github.com/TrueNight/Utils.git'
 
-    libraryVersion = '1.1.4'
+    libraryVersion = '1.1.5'
 
     developerId = 'TrueNight'
     developerName = 'Mikhail Frolov'
