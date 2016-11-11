@@ -1,27 +1,10 @@
 apply plugin: 'com.android.library'
 
 ext {
-    bintrayRepo = 'maven'
     bintrayName = 'view-utils'
-
-    publishedGroupId = 'xyz.truenight.utils'
     libraryName = 'ViewUtils'
     artifact = 'view-utils'
-
     libraryDescription = 'View utils for android'
-
-    siteUrl = 'https://github.com/TrueNight/Utils'
-    gitUrl = 'https://github.com/TrueNight/Utils.git'
-
-    libraryVersion = '1.0.5'
-
-    developerId = 'TrueNight'
-    developerName = 'Mikhail Frolov'
-    developerEmail = 'true_night@outlook.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
 }
 
 android {
@@ -59,5 +42,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
+apply from: '../ext.gradle'
 apply from: '../install.gradle'
 apply from: '../bintray.gradle'

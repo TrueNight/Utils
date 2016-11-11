@@ -16,8 +16,6 @@
 
 package xyz.truenight.utils;
 
-import java.lang.ref.ReferenceQueue;
-import java.lang.ref.SoftReference;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,7 +24,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-@SuppressWarnings("unchecked")
 public class MemoryCache<K, V> implements Map<K, V> {
     private final Map<K, CacheReference<V>> MAP = new ConcurrentHashMap<K, CacheReference<V>>();
     private CacheReference<V> NULL_KEY;
@@ -35,6 +32,7 @@ public class MemoryCache<K, V> implements Map<K, V> {
         return key == null ? getKeyNull() : Utils.unwrap(MAP.get(key));
     }
 
+    @SuppressWarnings("unchecked")
     public <T> T get(Object key, Class<T> clazz) {
         return (T) (key == null ? getKeyNull() : Utils.unwrap(MAP.get(key)));
     }
@@ -140,20 +138,5 @@ public class MemoryCache<K, V> implements Map<K, V> {
         V object = getKeyNull();
         setKeyNull(value);
         return object;
-    }
-
-    public class CacheReference<T> extends SoftReference<T> {
-        public CacheReference(T referent) {
-            super(referent);
-        }
-
-        public CacheReference(T referent, ReferenceQueue<? super T> q) {
-            super(referent, q);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            return obj instanceof CacheReference && Utils.equal(get(), ((CacheReference) obj).get());
-        }
     }
 }
