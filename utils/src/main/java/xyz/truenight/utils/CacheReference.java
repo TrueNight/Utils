@@ -1,9 +1,9 @@
 package xyz.truenight.utils;
 
 import java.lang.ref.ReferenceQueue;
-import java.lang.ref.SoftReference;
+import java.lang.ref.WeakReference;
 
-public class CacheReference<T> extends SoftReference<T> {
+public class CacheReference<T> extends WeakReference<T> {
     public CacheReference(T referent) {
         super(referent);
     }

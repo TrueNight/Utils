@@ -22,12 +22,11 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicReference;
 
 @SuppressWarnings("unchecked")
-public class ConcurrentMap<K, V> implements Map<K, V> {
-    private final Map<K, V> MAP = new ConcurrentHashMap<K, V>();
+public class ConcurrentHashMap<K, V> implements Map<K, V> {
+    private final Map<K, V> MAP = new java.util.concurrent.ConcurrentHashMap<K, V>();
     private final AtomicReference<V> NULL_KEY = new AtomicReference<V>();
 
     public int size() {

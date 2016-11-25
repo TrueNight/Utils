@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MemoryCache<K, V> implements Map<K, V> {
+
     private final Map<K, CacheReference<V>> MAP = new ConcurrentHashMap<K, CacheReference<V>>();
     private CacheReference<V> NULL_KEY;
 
@@ -54,7 +55,7 @@ public class MemoryCache<K, V> implements Map<K, V> {
     }
 
     public V put(K key, V value) {
-        // // TODO: 05/09/16 check memory
+        // TODO: 05/09/16 check memory
         return key == null ?
                 getAndSetKeyNull(value) :
                 (

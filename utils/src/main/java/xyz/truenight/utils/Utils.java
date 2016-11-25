@@ -636,6 +636,25 @@ public class Utils {
         return (o == null) ? 0 : o.hashCode();
     }
 
+    public static int secondaryHash(Object key) {
+        return secondaryHash(key.hashCode());
+    }
+
+    public static int secondaryIdentityHash(Object key) {
+        return secondaryHash(System.identityHashCode(key));
+    }
+
+    private static int secondaryHash(int h) {
+        // Spread bits to regularize both segment and index locations,
+        // using variant of single-word Wang/Jenkins hash.
+        h += (h << 15) ^ 0xffffcd7d;
+        h ^= (h >>> 10);
+        h += (h << 3);
+        h ^= (h >>> 6);
+        h += (h << 2) + (h << 14);
+        return h ^ (h >>> 16);
+    }
+
     /**
      * Returns {@code o} if non-null, or throws {@code NullPointerException}.
      */
