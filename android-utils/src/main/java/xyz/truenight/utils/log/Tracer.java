@@ -20,7 +20,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
-import xyz.truenight.utils.ConcurrentMap;
+import xyz.truenight.utils.ConcurrentHashMap;
 
 public class Tracer {
 
@@ -31,7 +31,7 @@ public class Tracer {
     private static AtomicBoolean isPrintToLog = new AtomicBoolean(true);
     public static final String TRACER = "Tracer";
     private static final int CLIENT_CODE_STACK_INDEX;
-    private static final ConcurrentMap S_CONCURRENT_MAP = new ConcurrentMap();
+    private static final ConcurrentHashMap S_CONCURRENT_MAP = new ConcurrentHashMap();
     private static final AtomicReference<Log.LogImplementation> logImpl = new AtomicReference<>(Log.get());
 
     static {

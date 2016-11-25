@@ -17,6 +17,7 @@
 package xyz.truenight.utils;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -299,7 +300,8 @@ public class Palazzo {
     private synchronized void onComplete(String tag, String subTag) {
         decrease(tag);
         if (!mListeners.isEmpty()) {
-            Iterator<OnCompletionListener> iterator = mListeners.iterator();
+            List<OnCompletionListener> temp = new ArrayList<>(mListeners);
+            Iterator<OnCompletionListener> iterator = temp.iterator();
             while (iterator.hasNext()) {
                 OnCompletionListener listener = iterator.next();
 

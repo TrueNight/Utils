@@ -22,12 +22,12 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import xyz.truenight.utils.ConcurrentMap;
+import xyz.truenight.utils.ConcurrentHashMap;
 
 public class Profiler {
+
     private static final AtomicInteger mCounter = new AtomicInteger(0);
     private static volatile long startTime;
     private static final Timing DEFAULT_TIMING = Profiler.getNewInstance();
@@ -52,8 +52,8 @@ public class Profiler {
 
     public static class Timing {
         private final int ordinalNumber = mCounter.incrementAndGet();
-        private final ConcurrentMap<Object, Timing> timings = new ConcurrentMap<>();
-        private final ConcurrentMap metadata = new ConcurrentMap();
+        private final ConcurrentHashMap<Object, Timing> timings = new ConcurrentHashMap<>();
+        private final ConcurrentHashMap metadata = new ConcurrentHashMap();
 
         private volatile long launches;
 
@@ -161,7 +161,7 @@ public class Profiler {
         }
 
         @NonNull
-        public ConcurrentMap getMetadata() {
+        public ConcurrentHashMap getMetadata() {
             return metadata;
         }
 
@@ -344,7 +344,7 @@ public class Profiler {
     }
 
     @NonNull
-    public ConcurrentMap getMetadata() {
+    public ConcurrentHashMap getMetadata() {
         return DEFAULT_TIMING.getMetadata();
     }
 

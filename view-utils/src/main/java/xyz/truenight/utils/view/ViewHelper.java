@@ -1040,7 +1040,7 @@ public final class ViewHelper {
 //            Tracer.print("text = " + text + " newText = " + newText + " source = " + source + " source length " + (source == null ? "null" : "" + source.length())
 //                    + " start " + start + " end " + end + " dest = " + dest + " dstart " + dstart + " dend " + dend);
 
-            int value = Utils.getValue(newText);
+            int value = Utils.getIntValue(newText);
             int max = mMax.get();
             boolean clearChar = value > max || newText.length() > String.valueOf(max).length();
 
@@ -1081,7 +1081,7 @@ public final class ViewHelper {
 //            Tracer.print("text = " + text + " newText = " + newText + " source = " + source + " source length " + (source == null ? "null" : "" + source.length())
 //                    + " start " + start + " end " + end + " dest = " + dest + " dstart " + dstart + " dend " + dend);
 
-            int value = Utils.getValue(newText);
+            int value = Utils.getIntValue(newText);
             int min = mMin.get();
             boolean clearChar = value < min;
 
