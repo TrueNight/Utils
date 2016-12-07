@@ -26,6 +26,7 @@ import android.support.v4.content.ContextCompat;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Random;
 
 public class PermissionRequest {
 
@@ -62,6 +63,7 @@ public class PermissionRequest {
     }
 
     private static final HashMap<Integer, ResponseWrapper> map = new HashMap<>();
+    private static final Random random = new Random();
 
     /**
      * Request Android Permissions.
@@ -147,7 +149,7 @@ public class PermissionRequest {
             if (permissionSet.size() > 0) {
                 int id = 42167;
                 while (map.containsKey(id))
-                    id = (int) Math.round(Math.random() * Integer.MAX_VALUE);
+                    id = random.nextInt(Short.MAX_VALUE * 2);
 
                 map.put(id, new ResponseWrapper(response, permissions));
 
@@ -174,7 +176,7 @@ public class PermissionRequest {
             if (permissionSet.size() > 0) {
                 int id = 42167;
                 while (map.containsKey(id)) {
-                    id = Math.abs((int) Math.round(Math.random() * Integer.MAX_VALUE));
+                    id = random.nextInt(Short.MAX_VALUE * 2);
                 }
 
                 map.put(id, new ResponseWrapper(response, permissions));
