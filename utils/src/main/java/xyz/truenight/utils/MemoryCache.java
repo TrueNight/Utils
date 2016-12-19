@@ -30,12 +30,8 @@ public class MemoryCache<K, V> implements Map<K, V> {
     private CacheReference<V> NULL_KEY;
 
     public V get(Object key) {
+        clearUnused();
         return key == null ? getKeyNull() : Utils.unwrap(MAP.get(key));
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T get(Object key, Class<T> clazz) {
-        return (T) (key == null ? getKeyNull() : Utils.unwrap(MAP.get(key)));
     }
 
     public int size() {
@@ -82,6 +78,7 @@ public class MemoryCache<K, V> implements Map<K, V> {
 
     @Override
     public Set<K> keySet() {
+        clearUnused();
         HashSet<K> set = new HashSet<>();
         if (getKeyNull() != null) {
             set.add(null);
@@ -92,6 +89,7 @@ public class MemoryCache<K, V> implements Map<K, V> {
 
     @Override
     public Collection<V> values() {
+        clearUnused();
         ArrayList<V> list = new ArrayList<>();
         if (getKeyNull() != null) {
             list.add(getKeyNull());
@@ -104,6 +102,7 @@ public class MemoryCache<K, V> implements Map<K, V> {
 
     @Override
     public Set<Entry<K, V>> entrySet() {
+        clearUnused();
         HashSet<Entry<K, V>> set = new HashSet<>();
         if (getKeyNull() != null) {
             set.add(new AbstractMap.SimpleEntry<K, V>(null, getKeyNull()));
@@ -112,6 +111,17 @@ public class MemoryCache<K, V> implements Map<K, V> {
             set.add(new AbstractMap.SimpleEntry<K, V>(referenceEntry.getKey(), Utils.unwrap(referenceEntry.getValue())));
         }
         return set;
+    }
+
+    public void clearUnused() {
+        if (getKeyNull() == null) {
+            NULL_KEY = null;
+        }
+        for (K key : MAP.keySet()) {
+            if (Utils.unwrap(MAP.get(key)) == null) {
+                MAP.remove(key);
+            }
+        }
     }
 
     public boolean compare(K key, V value) {
