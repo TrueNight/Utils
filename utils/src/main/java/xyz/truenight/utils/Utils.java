@@ -48,10 +48,16 @@ public class Utils {
         return (value & mask) != 0;
     }
 
+    /**
+     * @return <tt>value</tt> if value is NOT <tt>null</tt> -  <tt>0</tt> in other ways
+     */
     public static Integer safe(Integer value) {
         return safe(value, 0);
     }
 
+    /**
+     * @return <tt>value</tt> if value is NOT <tt>null</tt> - <tt>defValue</tt> in other ways
+     */
     public static Integer safe(Integer value, int defValue) {
         if (value != null) {
             return value;
@@ -60,10 +66,16 @@ public class Utils {
         }
     }
 
+    /**
+     * @return <tt>value</tt> if value is NOT <tt>null</tt> -  <tt>0</tt> in other ways
+     */
     public static Long safe(Long value) {
         return safe(value, 0L);
     }
 
+    /**
+     * @return <tt>value</tt> if value is NOT <tt>null</tt> - <tt>defValue</tt> in other ways
+     */
     public static Long safe(Long value, long defValue) {
         if (value != null) {
             return value;
@@ -72,10 +84,16 @@ public class Utils {
         }
     }
 
+    /**
+     * @return <tt>value</tt> if value is NOT <tt>null</tt> -  <tt>0</tt> in other ways
+     */
     public static Double safe(Double value) {
         return safe(value, 0D);
     }
 
+    /**
+     * @return <tt>value</tt> if value is NOT <tt>null</tt> - <tt>defValue</tt> in other ways
+     */
     public static Double safe(Double value, double defValue) {
         if (value != null) {
             return value;
@@ -84,10 +102,16 @@ public class Utils {
         }
     }
 
+    /**
+     * @return <tt>value</tt> if value is NOT <tt>null</tt> -  <tt>0</tt> in other ways
+     */
     public static Float safe(Float value) {
         return safe(value, 0F);
     }
 
+    /**
+     * @return <tt>value</tt> if value is NOT <tt>null</tt> - <tt>defValue</tt> in other ways
+     */
     public static Float safe(Float value, float defValue) {
         if (value != null) {
             return value;
@@ -96,14 +120,16 @@ public class Utils {
         }
     }
 
-    public static String safe(String value) {
-        return string(value, EMPTY);
-    }
-
+    /**
+     * @return <tt>value</tt> if value is NOT <tt>null</tt> -  <tt>0</tt> in other ways
+     */
     public static Short safe(Short value) {
         return safe(value, (short) 0);
     }
 
+    /**
+     * @return <tt>value</tt> if value is NOT <tt>null</tt> - <tt>defValue</tt> in other ways
+     */
     public static Short safe(Short value, short defValue) {
         if (value != null) {
             return value;
@@ -112,10 +138,16 @@ public class Utils {
         }
     }
 
+    /**
+     * @return <tt>value</tt> if value is NOT <tt>null</tt> - <tt>false</tt> in other ways
+     */
     public static Boolean safe(Boolean value) {
         return value != null && value;
     }
 
+    /**
+     * @return <tt>value</tt> if value is NOT <tt>null</tt> - <tt>defValue</tt> in other ways
+     */
     public static <T> T safe(T value, T defValue) {
         if (value != null) {
             return value;
@@ -124,6 +156,16 @@ public class Utils {
         }
     }
 
+    /**
+     * @return <tt>value</tt> if value is NOT <tt>null</tt> - empty string in other ways
+     */
+    public static String safe(String value) {
+        return string(value, EMPTY);
+    }
+
+    /**
+     * @return <tt>result</tt> if in condition - empty string in other ways
+     */
     public static String ifOnly(boolean condition, String result) {
         if (condition) {
             return result;
@@ -131,150 +173,261 @@ public class Utils {
         return EMPTY;
     }
 
+    /**
+     * NULL and range safe get()
+     */
     public static boolean get(boolean[] array, int position) {
         return !(position < 0 || position >= Utils.sizeOf(array)) && array[position];
     }
 
+    /**
+     * NULL and range safe get()
+     */
     public static byte get(byte[] array, int position) {
         return position < 0 || position >= Utils.sizeOf(array) ? 0 : array[position];
     }
 
+    /**
+     * NULL and range safe get()
+     */
     public static char get(char[] array, int position) {
         return position < 0 || position >= Utils.sizeOf(array) ? 0 : array[position];
     }
 
+    /**
+     * NULL and range safe get()
+     */
     public static double get(double[] array, int position) {
         return position < 0 || position >= Utils.sizeOf(array) ? 0 : array[position];
     }
 
+    /**
+     * NULL and range safe get()
+     */
     public static float get(float[] array, int position) {
         return position < 0 || position >= Utils.sizeOf(array) ? 0 : array[position];
     }
 
+    /**
+     * NULL and range safe get()
+     */
     public static int get(int[] array, int position) {
         return position < 0 || position >= Utils.sizeOf(array) ? 0 : array[position];
     }
 
+    /**
+     * NULL and range safe get()
+     */
     public static long get(long[] array, int position) {
         return position < 0 || position >= Utils.sizeOf(array) ? 0 : array[position];
     }
 
+    /**
+     * NULL and range safe get()
+     */
     public static short get(short[] array, int position) {
         return position < 0 || position >= Utils.sizeOf(array) ? 0 : array[position];
     }
 
+    /**
+     * NULL and range safe get()
+     */
     public static <T> T get(T[] array, int position) {
         return position < 0 || position >= Utils.sizeOf(array) ? null : array[position];
     }
 
+    /**
+     * NULL and range safe get()
+     */
     public static <T> T get(List<T> data, int position) {
         return position < 0 || position >= Utils.sizeOf(data) ? null : data.get(position);
     }
 
+    /**
+     * NULL safe get()
+     */
     public static <T> T get(Map<?, T> data, Object key) {
         return data == null ? null : data.get(key);
     }
 
+    /**
+     * NULL safe contains()
+     */
     public static boolean contains(Collection<?> data, Object what) {
         return data != null && data.contains(what);
     }
 
+    /**
+     * NULL safe containsAll()
+     */
     public static boolean containsAll(Collection<?> data, Collection<?> what) {
         return data != null && data.containsAll(what);
     }
 
+    /**
+     * NULL safe containsKey()
+     */
     public static boolean containsKey(Map<?, ?> data, Object what) {
         return data != null && data.containsKey(what);
     }
 
+    /**
+     * NULL safe containsValue()
+     */
     public static boolean containsValue(Map<?, ?> data, Object what) {
         return data != null && data.containsValue(what);
     }
 
+    /**
+     * @return FIRST element of list or FALSE if list is empty
+     */
     public static boolean first(boolean[] list) {
         return !isEmpty(list) && list[0];
     }
 
+    /**
+     * @return FIRST element of list or 0 if list is empty
+     */
     public static byte first(byte[] list) {
         return isEmpty(list) ? 0 : list[0];
     }
 
+    /**
+     * @return FIRST element of list or 0 if list is empty
+     */
     public static char first(char[] list) {
         return isEmpty(list) ? 0 : list[0];
     }
 
+    /**
+     * @return FIRST element of list or 0 if list is empty
+     */
     public static double first(double[] list) {
         return isEmpty(list) ? 0 : list[0];
     }
 
+    /**
+     * @return FIRST element of list or 0 if list is empty
+     */
     public static float first(float[] list) {
         return isEmpty(list) ? 0 : list[0];
     }
 
+    /**
+     * @return FIRST element of list or 0 if list is empty
+     */
     public static int first(int[] list) {
         return isEmpty(list) ? 0 : list[0];
     }
 
+    /**
+     * @return FIRST element of list or 0 if list is empty
+     */
     public static long first(long[] list) {
         return isEmpty(list) ? 0 : list[0];
     }
 
+    /**
+     * @return FIRST element of list or 0 if list is empty
+     */
     public static short first(short[] list) {
         return isEmpty(list) ? 0 : list[0];
     }
 
+    /**
+     * @return FIRST element of list or NULL if list is empty
+     */
     public static <T> T first(T[] array) {
         return isEmpty(array) ? null : array[0];
     }
 
+    /**
+     * @return FIRST element of list or NULL if list is empty
+     */
     public static <T> T first(List<T> list) {
         return isEmpty(list) ? null : list.get(0);
     }
 
+    /**
+     * @return FIRST element of list or NULL if list is empty
+     */
     public static <T> T first(Collection<T> list) {
         return isEmpty(list) ? null : list.iterator().next();
     }
 
+    /**
+     * @return LAST element of list or false if list is empty
+     */
     public static boolean last(boolean[] list) {
         return !isEmpty(list) && list[list.length - 1];
     }
 
+    /**
+     * @return LAST element of list or 0 if list is empty
+     */
     public static byte last(byte[] list) {
         return isEmpty(list) ? 0 : list[list.length - 1];
     }
 
+    /**
+     * @return LAST element of list or 0 if list is empty
+     */
     public static char last(char[] list) {
         return isEmpty(list) ? 0 : list[list.length - 1];
     }
 
+    /**
+     * @return LAST element of list or 0 if list is empty
+     */
     public static double last(double[] list) {
         return isEmpty(list) ? 0 : list[list.length - 1];
     }
 
+    /**
+     * @return LAST element of list or 0 if list is empty
+     */
     public static float last(float[] list) {
         return isEmpty(list) ? 0 : list[list.length - 1];
     }
 
+    /**
+     * @return LAST element of list or 0 if list is empty
+     */
     public static int last(int[] list) {
         return isEmpty(list) ? 0 : list[list.length - 1];
     }
 
+    /**
+     * @return LAST element of list or 0 if list is empty
+     */
     public static long last(long[] list) {
         return isEmpty(list) ? 0 : list[list.length - 1];
     }
 
+    /**
+     * @return LAST element of list or 0 if list is empty
+     */
     public static short last(short[] list) {
         return isEmpty(list) ? 0 : list[list.length - 1];
     }
 
+    /**
+     * @return LAST element of list or NULL if list is empty
+     */
     public static <T> T last(T[] list) {
         return isEmpty(list) ? null : list[list.length - 1];
     }
 
+    /**
+     * @return LAST element of list or NULL if list is empty
+     */
     public static <T> T last(List<T> list) {
         return isEmpty(list) ? null : list.get(list.size() - 1);
     }
 
+    /**
+     * @return copy of array without FIRST element or NULL if array is empty
+     */
     public static <T> T[] pullFirst(T[] list) {
         if (isEmpty(list)) {
             return null;
@@ -282,6 +435,9 @@ public class Utils {
         return Arrays.copyOfRange(list, 1, list.length - 1);
     }
 
+    /**
+     * @return copy of list without FIRST element or NULL if list is empty
+     */
     public static <T> List<T> pullFirst(List<T> list) {
         if (isEmpty(list)) {
             return null;
@@ -294,6 +450,9 @@ public class Utils {
         return newList;
     }
 
+    /**
+     * @return copy of array without LAST element or NULL if array is empty
+     */
     public static <T> T[] pullLast(T[] list) {
         if (isEmpty(list)) {
             return null;
@@ -301,6 +460,9 @@ public class Utils {
         return Arrays.copyOf(list, list.length - 1);
     }
 
+    /**
+     * @return copy of list without LAST element or NULL if list is empty
+     */
     public static <T> List<T> pullLast(List<T> list) {
         if (isEmpty(list)) {
             return null;
@@ -313,106 +475,191 @@ public class Utils {
         return newList;
     }
 
+    /**
+     * NULL safe isEmpty()
+     */
     public static boolean isEmpty(boolean[] array) {
         return array == null || array.length == 0;
     }
 
+    /**
+     * NULL safe isEmpty()
+     */
     public static boolean isEmpty(byte[] array) {
         return array == null || array.length == 0;
     }
 
+    /**
+     * NULL safe isEmpty()
+     */
     public static boolean isEmpty(char[] array) {
         return array == null || array.length == 0;
     }
 
+    /**
+     * NULL safe isEmpty()
+     */
     public static boolean isEmpty(double[] array) {
         return array == null || array.length == 0;
     }
 
+    /**
+     * NULL safe isEmpty()
+     */
     public static boolean isEmpty(float[] array) {
         return array == null || array.length == 0;
     }
 
+    /**
+     * NULL safe isEmpty()
+     */
     public static boolean isEmpty(int[] array) {
         return array == null || array.length == 0;
     }
 
+    /**
+     * NULL safe isEmpty()
+     */
     public static boolean isEmpty(long[] array) {
         return array == null || array.length == 0;
     }
 
+    /**
+     * NULL safe isEmpty()
+     */
     public static boolean isEmpty(short[] array) {
         return array == null || array.length == 0;
     }
 
+    /**
+     * NULL safe isEmpty()
+     */
     public static boolean isEmpty(Object[] array) {
         return array == null || array.length == 0;
     }
 
+    /**
+     * NULL safe isEmpty()
+     */
     public static boolean isEmpty(Collection collection) {
         return collection == null || collection.isEmpty();
     }
 
+    /**
+     * NULL safe isEmpty()
+     */
     public static boolean isEmpty(Map map) {
         return map == null || map.isEmpty();
     }
 
+    /**
+     * @return is only one item in collection
+     */
     public static boolean onlyOne(Collection collection) {
         return collection != null && collection.size() == 1;
     }
 
+    /**
+     * @return is only one item in array
+     */
     public static boolean onlyOne(Object[] objects) {
         return objects != null && objects.length == 1;
     }
 
+    /**
+     * @return is only one item in map
+     */
+    public static boolean onlyOne(Map map) {
+        return map != null && map.size() == 1;
+    }
+
+    /**
+     * NULL safe sizeOf()
+     */
     public static int sizeOf(String string) {
         return string == null ? 0 : string.length();
     }
 
+    /**
+     * NULL safe sizeOf()
+     */
     public static int sizeOf(boolean[] list) {
         return list == null ? 0 : list.length;
     }
 
+    /**
+     * NULL safe sizeOf()
+     */
     public static int sizeOf(byte[] list) {
         return list == null ? 0 : list.length;
     }
 
+    /**
+     * NULL safe sizeOf()
+     */
     public static int sizeOf(char[] list) {
         return list == null ? 0 : list.length;
     }
 
+    /**
+     * NULL safe sizeOf()
+     */
     public static int sizeOf(double[] list) {
         return list == null ? 0 : list.length;
     }
 
+    /**
+     * NULL safe sizeOf()
+     */
     public static int sizeOf(float[] list) {
         return list == null ? 0 : list.length;
     }
 
+    /**
+     * NULL safe sizeOf()
+     */
     public static int sizeOf(int[] list) {
         return list == null ? 0 : list.length;
     }
 
+    /**
+     * NULL safe sizeOf()
+     */
     public static int sizeOf(long[] list) {
         return list == null ? 0 : list.length;
     }
 
+    /**
+     * NULL safe sizeOf()
+     */
     public static int sizeOf(short[] list) {
         return list == null ? 0 : list.length;
     }
 
+    /**
+     * NULL safe sizeOf()
+     */
     public static <T> int sizeOf(T[] list) {
         return list == null ? 0 : list.length;
     }
 
+    /**
+     * NULL safe sizeOf()
+     */
     public static int sizeOf(Collection<?> list) {
         return list == null ? 0 : list.size();
     }
 
+    /**
+     * NULL safe sizeOf()
+     */
     public static int sizeOf(Map<?, ?> map) {
         return map == null ? 0 : map.size();
     }
 
+    /**
+     * @return list with items
+     */
     public static <T> List<T> add(T... what) {
         List<T> data = new ArrayList<T>();
         for (T item : what) {
@@ -421,24 +668,39 @@ public class Utils {
         return data;
     }
 
+    /**
+     * NULL safe add()
+     *
+     * @return list with items
+     */
     public static <T> List<T> add(List<T> to, T what) {
         List<T> data = safe(to, new ArrayList<T>());
         data.add(what);
         return data;
     }
 
+    /**
+     * NULL safe add()
+     * @return list with items
+     */
     public static <T> Collection<T> add(Collection<T> to, T what) {
         Collection<T> data = safe(to, new ArrayList<T>());
         data.add(what);
         return data;
     }
 
+    /**
+     * Add element to start of list
+     */
     public static <T> List<T> addFirst(List<T> to, T what) {
         List<T> data = safe(to, new ArrayList<T>());
         data.add(0, what);
         return data;
     }
 
+    /**
+     * NULL safe addAll()
+     */
     public static <T> List<T> addAll(List<T> to, List<? extends T> what) {
         List<T> data = safe(to, new ArrayList<T>());
         if (!isEmpty(what)) {
@@ -447,6 +709,9 @@ public class Utils {
         return data;
     }
 
+    /**
+     * NULL safe addAll()
+     */
     public static <T> Collection<T> addAll(Collection<T> to, Collection<? extends T> what) {
         Collection<T> data = safe(to, new ArrayList<T>());
         if (!isEmpty(what)) {
@@ -455,18 +720,27 @@ public class Utils {
         return data;
     }
 
+    /**
+     * NULL safe put()
+     */
     public static <K, V> void put(Map<K, V> to, K key, V value) {
         if (to != null && value != null) {
             to.put(key, value);
         }
     }
 
+    /**
+     * NULL safe putAll()
+     */
     public static <K, V> void putAll(Map<K, V> to, Map<K, V> from) {
         if (to != null && from != null) {
             to.putAll(from);
         }
     }
 
+    /**
+     * @return union of lists
+     */
     @SafeVarargs
     public static <T> List<T> union(List<T>... what) {
         HashSet<T> list = new HashSet<>();
@@ -476,6 +750,9 @@ public class Utils {
         return new ArrayList<>(list);
     }
 
+    /**
+     * @return concatenation of lists
+     */
     @SafeVarargs
     public static <T> List<T> concatenate(List<T>... what) {
         List<T> list = new ArrayList<>();
@@ -485,6 +762,9 @@ public class Utils {
         return list;
     }
 
+    /**
+     * Removes items which not accepted by filter
+     */
     public static <T> void filter(Collection<T> data, Filter<T> filter) {
         if (!Utils.isEmpty(data)) {
             Iterator<T> iterator = data.iterator();
@@ -595,10 +875,16 @@ public class Utils {
         return a.equals(b);
     }
 
+    /**
+     * NULL safe reference unwrap
+     */
     public static <T> T unwrap(Reference<T> reference) {
         return reference == null ? null : reference.get();
     }
 
+    /**
+     * NULL safe reference unwrap
+     */
     public static <T> T unwrap(AtomicReference<T> reference) {
         return reference == null ? null : reference.get();
     }
@@ -636,14 +922,23 @@ public class Utils {
         return (o == null) ? 0 : o.hashCode();
     }
 
+    /**
+     * @return secondary hash from object's hash
+     */
     public static int secondaryHash(Object key) {
         return secondaryHash(key.hashCode());
     }
 
+    /**
+     * @return secondary hash from identity hash
+     */
     public static int secondaryIdentityHash(Object key) {
         return secondaryHash(System.identityHashCode(key));
     }
 
+    /**
+     * @return secondary hash from hash
+     */
     private static int secondaryHash(int h) {
         // Spread bits to regularize both segment and index locations,
         // using variant of single-word Wang/Jenkins hash.
@@ -754,11 +1049,20 @@ public class Utils {
         return (o == null) ? nullString : o.toString();
     }
 
+    /**
+     * NULL safe startsWith()
+     */
     public static boolean startsWith(String string, String prefix) {
         return isEmpty(string) && isEmpty(prefix) || string != null && string.startsWith(prefix);
     }
 
-    public static CharSequence join(Iterable list) {
+    /**
+     * Returns a string containing the tokens joined.
+     *
+     * @param list an array objects to be joined. Strings will be formed from
+     *             the objects by calling object.toString().
+     */
+    public static CharSequence join(Object... list) {
         return join("", list);
     }
 
@@ -786,6 +1090,39 @@ public class Utils {
      * Returns a string containing the tokens joined by delimiters.
      *
      * @param tokens an array objects to be joined. Strings will be formed from
+     *               the objects by calling object.toString() NULL items won't be added.
+     */
+    public static String joinNotNull(CharSequence delimiter, Object... tokens) {
+        StringBuilder sb = new StringBuilder();
+        boolean firstTime = true;
+        for (Object token : tokens) {
+            if (token != null) {
+                if (firstTime) {
+                    firstTime = false;
+                } else {
+                    sb.append(delimiter);
+                }
+                sb.append(token);
+            }
+        }
+        return sb.toString();
+    }
+
+
+    /**
+     * Returns a string containing the tokens joined.
+     *
+     * @param tokens an array objects to be joined. Strings will be formed from
+     *               the objects by calling object.toString().
+     */
+    public static CharSequence join(Iterable tokens) {
+        return join("", tokens);
+    }
+
+    /**
+     * Returns a string containing the tokens joined by delimiters.
+     *
+     * @param tokens an array objects to be joined. Strings will be formed from
      *               the objects by calling object.toString().
      */
     public static String join(CharSequence delimiter, Iterable tokens) {
@@ -796,6 +1133,28 @@ public class Utils {
                 firstTime = false;
             } else {
                 sb.append(delimiter);
+            }
+            sb.append(token);
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Returns a string containing the tokens joined by delimiters.
+     *
+     * @param tokens an array objects to be joined. Strings will be formed from
+     *               the objects by calling object.toString() NULL items won't be added.
+     */
+    public static String joinNotNull(CharSequence delimiter, Iterable tokens) {
+        StringBuilder sb = new StringBuilder();
+        boolean firstTime = true;
+        for (Object token : tokens) {
+            if (token != null) {
+                if (firstTime) {
+                    firstTime = false;
+                } else {
+                    sb.append(delimiter);
+                }
             }
             sb.append(token);
         }
@@ -826,7 +1185,7 @@ public class Utils {
     public static List<String> splitAndClearEmpty(String string, String regularExpression) {
         ArrayList<String> strings = new ArrayList<>();
         final String[] split = string.split(regularExpression);
-        if (split == null || split.length == 0) {
+        if (split.length == 0) {
             strings.add(string);
         } else {
             strings.addAll(Arrays.asList(split));
@@ -877,6 +1236,9 @@ public class Utils {
         return strings.toArray(new String[strings.size()]);
     }
 
+    /**
+     * Parse int value from string
+     */
     public static int getIntValue(String intNumber) {
         try {
             return Integer.parseInt(intNumber);
