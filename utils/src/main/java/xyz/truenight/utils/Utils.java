@@ -681,6 +681,7 @@ public class Utils {
 
     /**
      * NULL safe add()
+     *
      * @return list with items
      */
     public static <T> Collection<T> add(Collection<T> to, T what) {
@@ -1108,6 +1109,28 @@ public class Utils {
         return sb.toString();
     }
 
+    /**
+     * Returns a string containing the tokens joined by delimiters.
+     *
+     * @param tokens an array objects to be joined. Strings will be formed from
+     *               the objects by calling object.toString() EMPTY items won't be added.
+     */
+    public static String joinNotEmpty(CharSequence delimiter, Object... tokens) {
+        StringBuilder sb = new StringBuilder();
+        boolean firstTime = true;
+        for (Object token : tokens) {
+            if (!isEmpty(toString(token))) {
+                if (firstTime) {
+                    firstTime = false;
+                } else {
+                    sb.append(delimiter);
+                }
+                sb.append(token);
+            }
+        }
+        return sb.toString();
+    }
+
 
     /**
      * Returns a string containing the tokens joined.
@@ -1155,8 +1178,30 @@ public class Utils {
                 } else {
                     sb.append(delimiter);
                 }
+                sb.append(token);
             }
-            sb.append(token);
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Returns a string containing the tokens joined by delimiters.
+     *
+     * @param tokens an array objects to be joined. Strings will be formed from
+     *               the objects by calling object.toString() EMPTY items won't be added.
+     */
+    public static String joinNotEmpty(CharSequence delimiter, Iterable tokens) {
+        StringBuilder sb = new StringBuilder();
+        boolean firstTime = true;
+        for (Object token : tokens) {
+            if (!isEmpty(toString(token))) {
+                if (firstTime) {
+                    firstTime = false;
+                } else {
+                    sb.append(delimiter);
+                }
+                sb.append(token);
+            }
         }
         return sb.toString();
     }
