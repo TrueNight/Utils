@@ -740,24 +740,24 @@ public class Utils {
     }
 
     /**
-     * @return union of lists
+     * @return union of collections
      */
     @SafeVarargs
-    public static <T> List<T> union(List<T>... what) {
+    public static <T> Collection<T> union(Collection<T>... what) {
         HashSet<T> list = new HashSet<>();
-        for (List<T> ts : what) {
+        for (Collection<T> ts : what) {
             list.addAll(ts);
         }
         return new ArrayList<>(list);
     }
 
     /**
-     * @return concatenation of lists
+     * @return concatenation of collections
      */
     @SafeVarargs
-    public static <T> List<T> concatenate(List<T>... what) {
-        List<T> list = new ArrayList<>();
-        for (List<T> ts : what) {
+    public static <T> Collection<T> concatenate(Collection<T>... what) {
+        Collection<T> list = new ArrayList<>();
+        for (Collection<T> ts : what) {
             list.addAll(ts);
         }
         return list;
