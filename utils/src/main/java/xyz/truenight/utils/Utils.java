@@ -740,12 +740,18 @@ public class Utils {
         }
     }
 
+    /**
+     * @return Builder for {@link java.util.HashMap}
+     */
     public static <K, V> MapBuilder<K, V> map() {
         return new MapBuilder<>();
     }
 
-    public static <K, V> MapBuilder<K, V> map(Map<K, V> to) {
-        return new MapBuilder<>(to);
+    /**
+     * @return Builder for {@code from}
+     */
+    public static <K, V> MapBuilder<K, V> map(Map<K, V> from) {
+        return new MapBuilder<>(from);
     }
 
     /**

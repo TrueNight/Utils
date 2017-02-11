@@ -8,7 +8,7 @@ import java.util.Map;
  * date: 11/02/2017
  * time: 22:06
  */
-class MapBuilder<K, V> {
+public class MapBuilder<K, V> {
 
     private Map<K, V> map;
 
@@ -28,5 +28,9 @@ class MapBuilder<K, V> {
     public MapBuilder<K, V> putAll(Map<K, V> from) {
         Utils.putAll(map, from);
         return this;
+    }
+
+    public Map<K, V> build() {
+        return map;
     }
 }
