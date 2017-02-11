@@ -724,10 +724,11 @@ public class Utils {
     /**
      * NULL safe put()
      */
-    public static <K, V> void put(Map<K, V> to, K key, V value) {
+    public static <K, V> V put(Map<K, V> to, K key, V value) {
         if (to != null && value != null) {
-            to.put(key, value);
+            return to.put(key, value);
         }
+        return null;
     }
 
     /**
@@ -737,6 +738,14 @@ public class Utils {
         if (to != null && from != null) {
             to.putAll(from);
         }
+    }
+
+    public static <K, V> MapBuilder<K, V> map() {
+        return new MapBuilder<>();
+    }
+
+    public static <K, V> MapBuilder<K, V> map(Map<K, V> to) {
+        return new MapBuilder<>(to);
     }
 
     /**

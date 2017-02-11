@@ -1,0 +1,32 @@
+package xyz.truenight.utils;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Created by true
+ * date: 11/02/2017
+ * time: 22:06
+ */
+class MapBuilder<K, V> {
+
+    private Map<K, V> map;
+
+    public MapBuilder() {
+        map = new HashMap<>();
+    }
+
+    public MapBuilder(Map<K, V> to) {
+        map = to;
+    }
+
+    public MapBuilder<K, V> put(K key, V value) {
+        map.put(key, value);
+        return this;
+    }
+
+    public MapBuilder<K, V> putAll(Map<K, V> from) {
+        Utils.putAll(map, from);
+        return this;
+    }
+}
