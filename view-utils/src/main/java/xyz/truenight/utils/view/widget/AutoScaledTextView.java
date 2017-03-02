@@ -60,4 +60,10 @@ public class AutoScaledTextView extends TextView {
         textSize = Math.min(textSize, Math.min(textSizeByHeight, textSizeByWidth));
         setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
     }
+
+    @Override
+    public int getMaxLines() {
+        int maxLines = super.getMaxLines();
+        return Math.max(0, maxLines == Integer.MAX_VALUE ? 1 : maxLines);
+    }
 }
