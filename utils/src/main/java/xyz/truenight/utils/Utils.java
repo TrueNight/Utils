@@ -20,6 +20,7 @@ import java.lang.ref.Reference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -662,9 +663,8 @@ public class Utils {
      */
     public static <T> List<T> add(T... what) {
         List<T> data = new ArrayList<T>();
-        for (T item : what) {
-            data.add(item);
-        }
+        if (what == null) return data;
+        Collections.addAll(data, what);
         return data;
     }
 
@@ -776,6 +776,18 @@ public class Utils {
             list.addAll(ts);
         }
         return list;
+    }
+
+    /**
+     * @return chopped list
+     */
+    public static <T> List<List<T>> chop(List<T> list, int length) {
+        List<List<T>> parts = new ArrayList<>();
+        final int size = list.size();
+        for (int i = 0; i < size; i += length) {
+            parts.add(new ArrayList<>(list.subList(i, Math.min(size, i + length))));
+        }
+        return parts;
     }
 
     /**
