@@ -25,8 +25,36 @@ public class MapBuilder<K, V> {
         return this;
     }
 
+    public MapBuilder<K, V> putIf(boolean condition, K key, V value) {
+        if (condition) {
+            map.put(key, value);
+        }
+        return this;
+    }
+
+    public MapBuilder<K, V> putNotNull(K key, V value) {
+        if (value != null) {
+            map.put(key, value);
+        }
+        return this;
+    }
+
+    public MapBuilder<K, V> putNotNullIf(boolean condition, K key, V value) {
+        if (condition && value != null) {
+            map.put(key, value);
+        }
+        return this;
+    }
+
     public MapBuilder<K, V> putAll(Map<K, V> from) {
         Utils.putAll(map, from);
+        return this;
+    }
+
+    public MapBuilder<K, V> putAllIf(boolean condition, Map<K, V> from) {
+        if (condition) {
+            Utils.putAll(map, from);
+        }
         return this;
     }
 
