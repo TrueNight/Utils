@@ -158,6 +158,28 @@ public class Utils {
     }
 
     /**
+     * @return <tt>value</tt> if value is NOT <tt>null</tt> - ArrayList in other ways
+     */
+    public static <T> List<T> safeList(List<T> value) {
+        if (value != null) {
+            return value;
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    /**
+     * @return <tt>value</tt> if value is NOT <tt>null</tt> - ArrayList in other ways
+     */
+    public static <T> Collection<T> safeCollection(Collection<T> value) {
+        if (value != null) {
+            return value;
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    /**
      * @return <tt>value</tt> if value is NOT <tt>null</tt> - empty string in other ways
      */
     public static String safe(String value) {
@@ -669,13 +691,40 @@ public class Utils {
     }
 
     /**
+     * @return list with items
+     */
+    public static <T> List<T> addNotNull(T... what) {
+        List<T> data = new ArrayList<T>();
+        if (what == null) return data;
+        for (T t : what) {
+            if (t != null) {
+                data.add(t);
+            }
+        }
+        return data;
+    }
+
+    /**
      * NULL safe add()
      *
      * @return list with items
      */
     public static <T> List<T> add(List<T> to, T what) {
-        List<T> data = safe(to, new ArrayList<T>());
+        List<T> data = safeList(to);
         data.add(what);
+        return data;
+    }
+
+    /**
+     * NULL safe add()
+     *
+     * @return list with items
+     */
+    public static <T> List<T> addNotNull(List<T> to, T what) {
+        List<T> data = safeList(to);
+        if (what != null) {
+            data.add(what);
+        }
         return data;
     }
 
@@ -685,8 +734,21 @@ public class Utils {
      * @return list with items
      */
     public static <T> Collection<T> add(Collection<T> to, T what) {
-        Collection<T> data = safe(to, new ArrayList<T>());
+        Collection<T> data = safeCollection(to);
         data.add(what);
+        return data;
+    }
+
+    /**
+     * NULL safe add()
+     *
+     * @return list with items
+     */
+    public static <T> Collection<T> addNotNull(Collection<T> to, T what) {
+        Collection<T> data = safeCollection(to);
+        if (what != null) {
+            data.add(what);
+        }
         return data;
     }
 
@@ -694,8 +756,19 @@ public class Utils {
      * Add element to start of list
      */
     public static <T> List<T> addFirst(List<T> to, T what) {
-        List<T> data = safe(to, new ArrayList<T>());
+        List<T> data = safeList(to);
         data.add(0, what);
+        return data;
+    }
+
+    /**
+     * Add element to start of list
+     */
+    public static <T> List<T> addFirstNotNull(List<T> to, T what) {
+        List<T> data = safeList(to);
+        if (what != null) {
+            data.add(0, what);
+        }
         return data;
     }
 
@@ -703,7 +776,7 @@ public class Utils {
      * NULL safe addAll()
      */
     public static <T> List<T> addAll(List<T> to, List<? extends T> what) {
-        List<T> data = safe(to, new ArrayList<T>());
+        List<T> data = safeList(to);
         if (!isEmpty(what)) {
             data.addAll(what);
         }
@@ -713,10 +786,40 @@ public class Utils {
     /**
      * NULL safe addAll()
      */
+    public static <T> List<T> addAllNotNull(List<T> to, List<? extends T> what) {
+        List<T> data = safeList(to);
+        if (!isEmpty(what)) {
+            for (T t : what) {
+                if (t != null) {
+                    data.add(t);
+                }
+            }
+        }
+        return data;
+    }
+
+    /**
+     * NULL safe addAll()
+     */
     public static <T> Collection<T> addAll(Collection<T> to, Collection<? extends T> what) {
-        Collection<T> data = safe(to, new ArrayList<T>());
+        Collection<T> data = safeCollection(to);
         if (!isEmpty(what)) {
             data.addAll(what);
+        }
+        return data;
+    }
+
+    /**
+     * NULL safe addAll()
+     */
+    public static <T> Collection<T> addAllNotNull(Collection<T> to, Collection<? extends T> what) {
+        Collection<T> data = safeCollection(to);
+        if (!isEmpty(what)) {
+            for (T t : what) {
+                if (t != null) {
+                    data.add(t);
+                }
+            }
         }
         return data;
     }
