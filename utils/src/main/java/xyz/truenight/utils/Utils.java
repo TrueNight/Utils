@@ -379,6 +379,13 @@ public class Utils {
     }
 
     /**
+     * @return TRUE if element on FIRST position of list or FALSE otherwise
+     */
+    public static <T> boolean isFirst(List<T> list, T item) {
+        return indexOf(list, item) == 0;
+    }
+
+    /**
      * @return LAST element of list or false if list is empty
      */
     public static boolean last(boolean[] list) {
@@ -446,6 +453,13 @@ public class Utils {
      */
     public static <T> T last(List<T> list) {
         return isEmpty(list) ? null : list.get(list.size() - 1);
+    }
+
+    /**
+     * @return TRUE if element on LAST position of list or FALSE otherwise
+     */
+    public static <T> boolean isLast(List<T> list, T item) {
+        return indexOf(list, item) == Utils.sizeOf(list) - 1;
     }
 
     /**
@@ -573,6 +587,13 @@ public class Utils {
      */
     public static boolean isEmpty(Map map) {
         return map == null || map.isEmpty();
+    }
+
+    /**
+     * NULL safe indexOf()
+     */
+    public static <T> int indexOf(List<T> list, T item) {
+        return list == null ? -1 : list.indexOf(item);
     }
 
     /**
