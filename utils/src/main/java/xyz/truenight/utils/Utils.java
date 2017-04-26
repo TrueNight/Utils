@@ -459,7 +459,7 @@ public class Utils {
      * @return TRUE if element on LAST position of list or FALSE otherwise
      */
     public static <T> boolean isLast(List<T> list, T item) {
-        return indexOf(list, item) == Utils.sizeOf(list) - 1;
+        return Utils.sizeOf(list) > 0 && indexOf(list, item) == Utils.sizeOf(list) - 1;
     }
 
     /**
