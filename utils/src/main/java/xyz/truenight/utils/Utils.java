@@ -882,6 +882,18 @@ public class Utils {
      * @return union of collections
      */
     @SafeVarargs
+    public static <T> HashSet<T> set(T... what) {
+        HashSet<T> list = new HashSet<>();
+        if (!Utils.isEmpty(what)) {
+            Collections.addAll(list, what);
+        }
+        return list;
+    }
+
+    /**
+     * @return union of collections
+     */
+    @SafeVarargs
     public static <T> Collection<T> union(Collection<T>... what) {
         HashSet<T> list = new HashSet<>();
         for (Collection<T> ts : what) {
