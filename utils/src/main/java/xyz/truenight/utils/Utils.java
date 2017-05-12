@@ -52,14 +52,14 @@ public class Utils {
     /**
      * @return <tt>value</tt> if value is NOT <tt>null</tt> -  <tt>0</tt> in other ways
      */
-    public static Integer safe(Integer value) {
+    public static int safe(Integer value) {
         return safe(value, 0);
     }
 
     /**
      * @return <tt>value</tt> if value is NOT <tt>null</tt> - <tt>defValue</tt> in other ways
      */
-    public static Integer safe(Integer value, int defValue) {
+    public static int safe(Integer value, int defValue) {
         if (value != null) {
             return value;
         } else {
@@ -70,14 +70,14 @@ public class Utils {
     /**
      * @return <tt>value</tt> if value is NOT <tt>null</tt> -  <tt>0</tt> in other ways
      */
-    public static Long safe(Long value) {
+    public static long safe(Long value) {
         return safe(value, 0L);
     }
 
     /**
      * @return <tt>value</tt> if value is NOT <tt>null</tt> - <tt>defValue</tt> in other ways
      */
-    public static Long safe(Long value, long defValue) {
+    public static long safe(Long value, long defValue) {
         if (value != null) {
             return value;
         } else {
@@ -88,14 +88,14 @@ public class Utils {
     /**
      * @return <tt>value</tt> if value is NOT <tt>null</tt> -  <tt>0</tt> in other ways
      */
-    public static Double safe(Double value) {
+    public static double safe(Double value) {
         return safe(value, 0D);
     }
 
     /**
      * @return <tt>value</tt> if value is NOT <tt>null</tt> - <tt>defValue</tt> in other ways
      */
-    public static Double safe(Double value, double defValue) {
+    public static double safe(Double value, double defValue) {
         if (value != null) {
             return value;
         } else {
@@ -106,14 +106,14 @@ public class Utils {
     /**
      * @return <tt>value</tt> if value is NOT <tt>null</tt> -  <tt>0</tt> in other ways
      */
-    public static Float safe(Float value) {
+    public static float safe(Float value) {
         return safe(value, 0F);
     }
 
     /**
      * @return <tt>value</tt> if value is NOT <tt>null</tt> - <tt>defValue</tt> in other ways
      */
-    public static Float safe(Float value, float defValue) {
+    public static float safe(Float value, float defValue) {
         if (value != null) {
             return value;
         } else {
@@ -124,14 +124,14 @@ public class Utils {
     /**
      * @return <tt>value</tt> if value is NOT <tt>null</tt> -  <tt>0</tt> in other ways
      */
-    public static Short safe(Short value) {
+    public static short safe(Short value) {
         return safe(value, (short) 0);
     }
 
     /**
      * @return <tt>value</tt> if value is NOT <tt>null</tt> - <tt>defValue</tt> in other ways
      */
-    public static Short safe(Short value, short defValue) {
+    public static short safe(Short value, short defValue) {
         if (value != null) {
             return value;
         } else {
@@ -142,7 +142,7 @@ public class Utils {
     /**
      * @return <tt>value</tt> if value is NOT <tt>null</tt> - <tt>false</tt> in other ways
      */
-    public static Boolean safe(Boolean value) {
+    public static boolean safe(Boolean value) {
         return value != null && value;
     }
 
