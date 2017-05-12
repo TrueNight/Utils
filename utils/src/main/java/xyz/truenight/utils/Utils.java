@@ -701,6 +701,32 @@ public class Utils {
         return map == null ? 0 : map.size();
     }
 
+
+    /**
+     * Sorts the given list in ascending natural order. The algorithm is
+     * stable which means equal elements don't get reordered.
+     *
+     * @throws ClassCastException if any element does not implement {@code Comparable},
+     *                            or if {@code compareTo} throws for any pair of elements.
+     */
+    public static <T extends Comparable<? super T>> List<T> sort(List<T> list) {
+        Collections.sort(list);
+        return list;
+    }
+
+    /**
+     * Sorts the given list using the given comparator. The algorithm is
+     * stable which means equal elements don't get reordered.
+     *
+     * @throws ClassCastException if any element does not implement {@code Comparable},
+     *                            or if {@code compareTo} throws for any pair of elements.
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> List<T> sort(List<T> list, Comparator<? super T> comparator) {
+        Collections.sort(list, comparator);
+        return list;
+    }
+
     /**
      * @return list with items
      */
