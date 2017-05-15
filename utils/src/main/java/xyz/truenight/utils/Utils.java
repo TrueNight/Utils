@@ -592,8 +592,8 @@ public class Utils {
     /**
      * NULL safe indexOf()
      */
-    public static <T> int indexOf(List<T> list, T item) {
-        return list == null ? -1 : list.indexOf(item);
+    public static int indexOf(List<?> data, Object entry) {
+        return data == null ? -1 : data.indexOf(entry);
     }
 
     /**
@@ -731,8 +731,8 @@ public class Utils {
      * @return list with items
      */
     public static <T> List<T> add(T... what) {
-        List<T> data = new ArrayList<T>();
-        if (what == null) return data;
+        if (what == null) return new ArrayList<T>();
+        List<T> data = new ArrayList<T>(what.length);
         Collections.addAll(data, what);
         return data;
     }
@@ -938,6 +938,61 @@ public class Utils {
             list.addAll(ts);
         }
         return list;
+    }
+
+    /**
+     * @param prev
+     * @param next
+     */
+    public static <T> void merge(List<T> prev, List<? extends T> next) {
+        // Remove all deleted items.
+        if (prev == null) {
+            prev = new ArrayList<>();
+        } else if (!prev.isEmpty()) {
+            for (int i = Utils.sizeOf(prev) - 1; i >= 0; --i) {
+                if (indexOf(next, prev.get(i)) < 0) {
+                    deleteEntity(prev, i);
+                }
+            }
+        }
+
+        // Add and move items.
+        for (int i = 0; i < next.size(); ++i) {
+            T entity = next.get(i);
+            int current = indexOf(prev, entity);
+            if (current < 0) {
+                addEntity(prev, i, entity);
+            } else if (current != i) {
+                moveEntity(prev, current, i, entity);
+            } else {
+                changeEntity(prev, i, entity);
+            }
+        }
+    }
+
+    private static <T> void changeEntity(List<T> prev, int i, T entity) {
+        prev.set(i, entity);
+    }
+
+    private static <T> void addEntity(List<T> prev, int i, T entity) {
+        prev.add(i, entity);
+    }
+
+    private static <T> void deleteEntity(List<T> prev, int i) {
+        prev.remove(i);
+    }
+
+    private static <T> void moveEntity(List<T> prev, int from, int to, T entity) {
+        move(prev, from, to, entity);
+    }
+
+    private static <T> void move(List<T> data, int from, int to, T temp) {
+        data.remove(from);
+        try {
+            data.add(to, temp);
+        } catch (Exception ignored) {
+            data.add(temp);
+        }
     }
 
     /**
