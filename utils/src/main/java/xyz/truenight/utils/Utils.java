@@ -944,7 +944,7 @@ public class Utils {
      * @param prev
      * @param next
      */
-    public static <T> void merge(List<T> prev, List<? extends T> next) {
+    public static <T> List<T> merge(List<T> prev, List<? extends T> next) {
         // Remove all deleted items.
         if (prev == null) {
             prev = new ArrayList<>();
@@ -968,6 +968,7 @@ public class Utils {
                 changeEntity(prev, i, entity);
             }
         }
+        return prev;
     }
 
     private static <T> void changeEntity(List<T> prev, int i, T entity) {
