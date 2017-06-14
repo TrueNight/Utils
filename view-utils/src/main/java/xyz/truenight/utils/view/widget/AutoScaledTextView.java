@@ -3,11 +3,11 @@ package xyz.truenight.utils.view.widget;
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.widget.TextView;
 
-public class AutoScaledTextView extends TextView {
+public class AutoScaledTextView extends AppCompatTextView {
 
     float textSize;
     private Rect rect = new Rect();
@@ -15,16 +15,31 @@ public class AutoScaledTextView extends TextView {
     public AutoScaledTextView(Context context) {
         super(context);
         textSize = getTextSize();
+        initMaxLines();
+    }
+
+    private void initMaxLines() {
+        if (getMaxLines() == Integer.MAX_VALUE) {
+            setMaxLines(1);
+        }
     }
 
     public AutoScaledTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         textSize = getTextSize();
+        initMaxLines();
     }
 
     public AutoScaledTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         textSize = getTextSize();
+        initMaxLines();
+    }
+
+    @Override
+    public void setText(CharSequence text, BufferType type) {
+        super.setText(text, type);
+        requestLayout();
     }
 
     @Override
@@ -59,11 +74,5 @@ public class AutoScaledTextView extends TextView {
 
         textSize = Math.min(textSize, Math.min(textSizeByHeight, textSizeByWidth));
         setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
-    }
-
-    @Override
-    public int getMaxLines() {
-        int maxLines = super.getMaxLines();
-        return Math.max(0, maxLines == Integer.MAX_VALUE ? 1 : maxLines);
     }
 }
