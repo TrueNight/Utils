@@ -16,11 +16,5 @@
 
 package xyz.truenight.utils.interfaces;
 
-/**
- * Created by true
- * date: 29/08/16
- * time: 03:21
- */
-public interface Mutate<T, O> {
-    T call(O data);
+public interface Function1<T> extends Function<T, T> {
 }

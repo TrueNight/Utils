@@ -16,6 +16,11 @@
 
 package xyz.truenight.utils.interfaces;
 
-public interface Modifier<T> {
-    T modify(T value);
+/**
+ * Created by true
+ * date: 29/08/16
+ * time: 03:21
+ */
+public interface Function<T, R> {
+    R apply(T t);
 }

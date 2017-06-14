@@ -22,5 +22,5 @@ package xyz.truenight.utils.interfaces;
  * time: 16:17
  */
 public interface Consumer<T> {
-    void consume(T data);
+    void accept(T data);
 }

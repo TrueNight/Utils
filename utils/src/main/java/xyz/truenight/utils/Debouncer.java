@@ -55,7 +55,7 @@ public class Debouncer<T> {
                         if (execute != null) {
                             mExecuteTask.set(null);
 
-                            mRunnable.consume(execute);
+                            mRunnable.accept(execute);
 //                            mLastUpdated.set(current);
                         } else {
                             mListening.set(false);

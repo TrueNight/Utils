@@ -1719,7 +1719,7 @@ public final class ViewHelper {
                     @Override
                     public void onClick(View widget) {
                         if (linkCallback != null) {
-                            linkCallback.consume(link.uri);
+                            linkCallback.accept(link.uri);
                         }
                     }
                 });
