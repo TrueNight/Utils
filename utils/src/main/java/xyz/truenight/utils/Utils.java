@@ -1024,6 +1024,21 @@ public class Utils {
     }
 
     /**
+     * Removes items which not accepted by filter
+     */
+    public static <T> List<T> filtered(Collection<T> data, Filter<T> filter) {
+        List<T> list = new ArrayList<>();
+        if (!Utils.isEmpty(data)) {
+            for (T item : data) {
+                if (filter.accept(item)) {
+                    list.add(item);
+                }
+            }
+        }
+        return list;
+    }
+
+    /**
      * Compares two {@code byte} values numerically.
      *
      * @param x the first {@code byte} to compare
