@@ -1,0 +1,61 @@
+apply plugin: 'com.android.library'
+
+ext {
+    bintrayRepo = 'maven'
+
+    libraryVersion = '1.0.1'
+
+    bintrayName = 'recycler-utils'
+    libraryName = 'Recycler'
+    artifact = 'recycler'
+    libraryDescription = 'Recycler extra'
+
+    publishedGroupId = 'xyz.truenight.utils'
+
+    siteUrl = 'https://github.com/TrueNight/Utils'
+    gitUrl = 'https://github.com/TrueNight/Utils.git'
+
+    developerId = 'TrueNight'
+    developerName = 'Mikhail Frolov'
+    developerEmail = 'true_night@outlook.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "25.0.2"
+
+
+    defaultConfig {
+        minSdkVersion 12
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:recyclerview-v7:23.4.0'
+
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+}
+
+
+apply from: '../install.gradle'
+apply from: '../bintray.gradle'
