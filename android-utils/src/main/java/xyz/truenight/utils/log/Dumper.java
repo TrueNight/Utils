@@ -2573,8 +2573,8 @@ public class Dumper {
             return null;
         }
 
-        public static <T> T getField(Class<?> с, String fieldName, Class<T> tClass) {
-            return (T) getField(с, fieldName);
+        public static <T> T getField(Class<?> c, String fieldName, Class<T> tClass) {
+            return (T) getField(c, fieldName);
         }
 
         public static Object getField(Class<?> c, String fieldName) {
