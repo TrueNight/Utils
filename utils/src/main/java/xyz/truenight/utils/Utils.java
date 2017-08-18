@@ -590,6 +590,83 @@ public class Utils {
     }
 
     /**
+     * NULL safe isNotEmpty()
+     */
+    public static boolean isNotEmpty(boolean[] array) {
+        return !isEmpty(array);
+    }
+
+    /**
+     * NULL safe isNotEmpty()
+     */
+    public static boolean isNotEmpty(byte[] array) {
+        return !isEmpty(array);
+    }
+
+    /**
+     * NULL safe isNotEmpty()
+     */
+    public static boolean isNotEmpty(char[] array) {
+        return !isEmpty(array);
+    }
+
+    /**
+     * NULL safe isNotEmpty()
+     */
+    public static boolean isNotEmpty(double[] array) {
+        return !isEmpty(array);
+    }
+
+    /**
+     * NULL safe isNotEmpty()
+     */
+    public static boolean isNotEmpty(float[] array) {
+        return !isEmpty(array);
+    }
+
+    /**
+     * NULL safe isNotEmpty()
+     */
+    public static boolean isNotEmpty(int[] array) {
+        return !isEmpty(array);
+    }
+
+    /**
+     * NULL safe isNotEmpty()
+     */
+    public static boolean isNotEmpty(long[] array) {
+        return !isEmpty(array);
+    }
+
+    /**
+     * NULL safe isNotEmpty()
+     */
+    public static boolean isNotEmpty(short[] array) {
+        return !isEmpty(array);
+    }
+
+    /**
+     * NULL safe isNotEmpty()
+     */
+    public static boolean isNotEmpty(Object[] array) {
+        return !isEmpty(array);
+    }
+
+    /**
+     * NULL safe isNotEmpty()
+     */
+    public static boolean isNotEmpty(Collection collection) {
+        return !isEmpty(collection);
+    }
+
+    /**
+     * NULL safe isNotEmpty()
+     */
+    public static boolean isNotEmpty(Map map) {
+        return !isEmpty(map);
+    }
+
+    /**
      * NULL safe indexOf()
      */
     public static int indexOf(List<?> data, Object entry) {
@@ -1150,6 +1227,13 @@ public class Utils {
         return reference == null ? null : reference.get();
     }
 
+    public static boolean isNull(Object object) {
+        return object == null;
+    }
+
+    public static boolean nonNull(Object object) {
+        return object != null;
+    }
 
     /**
      * Null-safe equivalent of {@code a.equals(b)}.
@@ -1243,6 +1327,19 @@ public class Utils {
             return true;
         else
             return false;
+    }
+
+    /**
+     * Returns false if the string is null or 0-length.
+     *
+     * @param str the string to be examined
+     * @return false if str is null or zero length
+     */
+    public static boolean isNotEmpty(CharSequence str) {
+        if (str == null || str.length() == 0)
+            return false;
+        else
+            return true;
     }
 
     /**
