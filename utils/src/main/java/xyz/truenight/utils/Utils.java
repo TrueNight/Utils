@@ -1415,6 +1415,41 @@ public class Utils {
     }
 
     /**
+     * NULL safe replace()
+     */
+    public static String replace(String string, CharSequence target, CharSequence replacement) {
+        return string == null ? null : string.replace(target, replacement);
+    }
+
+    /**
+     * NULL safe replaceFirst()
+     */
+    public static String replaceFirst(String string, String regex, String replacement) {
+        return string == null ? null : string.replaceFirst(regex, replacement);
+    }
+
+    /**
+     * NULL safe replaceAll()
+     */
+    public static String replaceAll(String string, String regex, String replacement) {
+        return string == null ? null : string.replaceAll(regex, replacement);
+    }
+
+    /**
+     * NULL safe trim()
+     */
+    public static String trim(String string) {
+        return string == null ? null : string.trim();
+    }
+
+    /**
+     * NULL safe trim()
+     */
+    public static boolean isTrimmedEmpty(String string) {
+        return string == null || string.trim().isEmpty();
+    }
+
+    /**
      * Returns a string containing the tokens joined.
      *
      * @param list an array objects to be joined. Strings will be formed from
