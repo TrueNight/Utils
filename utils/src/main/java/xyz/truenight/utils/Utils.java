@@ -585,6 +585,13 @@ public class Utils {
     /**
      * NULL safe isEmpty()
      */
+    public static boolean isEmpty(Iterable iterable) {
+        return iterable == null || !iterable.iterator().hasNext();
+    }
+
+    /**
+     * NULL safe isEmpty()
+     */
     public static boolean isEmpty(Map map) {
         return map == null || map.isEmpty();
     }
@@ -657,6 +664,13 @@ public class Utils {
      */
     public static boolean isNotEmpty(Collection collection) {
         return !isEmpty(collection);
+    }
+
+    /**
+     * NULL safe isNotEmpty()
+     */
+    public static boolean isNotEmpty(Iterable iterable) {
+        return !isEmpty(iterable);
     }
 
     /**
