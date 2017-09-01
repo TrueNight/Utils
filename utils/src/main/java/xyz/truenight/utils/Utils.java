@@ -379,6 +379,13 @@ public class Utils {
     }
 
     /**
+     * @return FIRST element of list or NULL if list is empty
+     */
+    public static <T> T first(Iterable<T> list) {
+        return isEmpty(list) ? null : list.iterator().next();
+    }
+
+    /**
      * @return TRUE if element on FIRST position of list or FALSE otherwise
      */
     public static <T> boolean isFirst(List<T> list, T item) {
