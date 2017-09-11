@@ -388,7 +388,7 @@ public class Utils {
     /**
      * @return TRUE if element on FIRST position of list or FALSE otherwise
      */
-    public static <T> boolean isFirst(List<T> list, T item) {
+    public static <T> boolean isFirst(List<T> list, Object item) {
         return indexOf(list, item) == 0;
     }
 
@@ -465,8 +465,9 @@ public class Utils {
     /**
      * @return TRUE if element on LAST position of list or FALSE otherwise
      */
-    public static <T> boolean isLast(List<T> list, T item) {
-        return Utils.sizeOf(list) > 0 && indexOf(list, item) == Utils.sizeOf(list) - 1;
+    public static <T> boolean isLast(List<T> list, Object item) {
+        int size = Utils.sizeOf(list);
+        return size > 0 && indexOf(list, item) == size - 1;
     }
 
     /**
