@@ -16,8 +16,9 @@
 
 package android.support.v7.widget;
 
+import android.animation.TimeInterpolator;
+import android.animation.ValueAnimator;
 import android.support.annotation.NonNull;
-import android.support.v4.animation.AnimatorCompatHelper;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
@@ -43,7 +44,7 @@ public class NoChangesItemAnimator extends SimpleItemAnimator {
     private ArrayList<ViewHolder> mMoveAnimations = new ArrayList<>();
     private ArrayList<ViewHolder> mRemoveAnimations = new ArrayList<>();
     private ArrayList<ViewHolder> mChangeAnimations = new ArrayList<>();
-//    private TimeInterpolator mDefaultInterpolator;
+    private TimeInterpolator mDefaultInterpolator;
 
     private static class MoveInfo {
         public ViewHolder holder;
@@ -513,16 +514,17 @@ public class NoChangesItemAnimator extends SimpleItemAnimator {
     }
 
     private void resetAnimation(ViewHolder holder) {
-        AnimatorCompatHelper.clearInterpolator(holder.itemView);
+        /*AnimatorCompatHelper.*/
+        clearInterpolator(holder.itemView);
         endAnimation(holder);
     }
 
-//    private void clearInterpolator(View view) {
-//        if (mDefaultInterpolator == null) {
-//            mDefaultInterpolator = new ValueAnimator().getInterpolator();
-//        }
-//        view.animate().setInterpolator(mDefaultInterpolator);
-//    }
+    private void clearInterpolator(View view) {
+        if (mDefaultInterpolator == null) {
+            mDefaultInterpolator = new ValueAnimator().getInterpolator();
+        }
+        view.animate().setInterpolator(mDefaultInterpolator);
+    }
 
     @Override
     public boolean isRunning() {
