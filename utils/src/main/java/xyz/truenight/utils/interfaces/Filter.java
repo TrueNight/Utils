@@ -17,5 +17,5 @@
 package xyz.truenight.utils.interfaces;
 
 public interface Filter<T> {
-    boolean accept(T source);
+    boolean accept(T t);
 }

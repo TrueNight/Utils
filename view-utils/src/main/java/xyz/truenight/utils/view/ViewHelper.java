@@ -99,7 +99,7 @@ import java.util.regex.Pattern;
 import xyz.truenight.utils.Utils;
 import xyz.truenight.utils.interfaces.Consumer;
 import xyz.truenight.utils.interfaces.Filter;
-import xyz.truenight.utils.interfaces.Source;
+import xyz.truenight.utils.interfaces.Supplier;
 import xyz.truenight.utils.view.animation.ShowHideAnimation;
 
 
@@ -1015,11 +1015,11 @@ public final class ViewHelper {
 
     public static class MaxValInputFilter implements InputFilter {
         private final EditText mEditText;
-        private final Source<Integer> mMax;
+        private final Supplier<Integer> mMax;
 
         public MaxValInputFilter(EditText editText, final int max) {
             mEditText = editText;
-            mMax = new Source<Integer>() {
+            mMax = new Supplier<Integer>() {
                 @Override
                 public Integer get() {
                     return max;
@@ -1027,7 +1027,7 @@ public final class ViewHelper {
             };
         }
 
-        public MaxValInputFilter(EditText editText, Source<Integer> max) {
+        public MaxValInputFilter(EditText editText, Supplier<Integer> max) {
             mEditText = editText;
             mMax = max;
         }
@@ -1056,11 +1056,11 @@ public final class ViewHelper {
     //TODO fix text deletion
     public static class MinValInputFilter implements InputFilter {
         private final EditText mEditText;
-        private final Source<Integer> mMin;
+        private final Supplier<Integer> mMin;
 
         public MinValInputFilter(EditText editText, final int min) {
             mEditText = editText;
-            mMin = new Source<Integer>() {
+            mMin = new Supplier<Integer>() {
                 @Override
                 public Integer get() {
                     return min;
@@ -1068,7 +1068,7 @@ public final class ViewHelper {
             };
         }
 
-        public MinValInputFilter(EditText editText, Source<Integer> min) {
+        public MinValInputFilter(EditText editText, Supplier<Integer> min) {
             mEditText = editText;
             mMin = min;
         }
@@ -1102,7 +1102,7 @@ public final class ViewHelper {
         editText.setFilters(new InputFilter[]{new MaxValInputFilter(editText, max)});
     }
 
-    public static void setMaxValInputFilter(final EditText editText, Source<Integer> max) {
+    public static void setMaxValInputFilter(final EditText editText, Supplier<Integer> max) {
         editText.setFilters(new InputFilter[]{new MaxValInputFilter(editText, max)});
     }
 
