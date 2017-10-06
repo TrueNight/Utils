@@ -1278,6 +1278,23 @@ public class Utils {
      * This can be used to compute a hash code for an object's fields as follows:
      * {@code Objects.hash(a, b, c)}.
      */
+    public static int hash(List<?> values) {
+        if (values == null)
+            return 0;
+
+        int result = 1;
+
+        for (Object element : values)
+            result = 31 * result + (element == null ? 0 : element.hashCode());
+
+        return result;
+    }
+
+    /**
+     * Convenience wrapper for {@link Arrays#hashCode}, adding varargs.
+     * This can be used to compute a hash code for an object's fields as follows:
+     * {@code Objects.hash(a, b, c)}.
+     */
     public static int absHash(Object... values) {
         return abs(Arrays.hashCode(values));
     }
