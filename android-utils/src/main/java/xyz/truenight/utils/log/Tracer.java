@@ -340,13 +340,13 @@ public class Tracer {
             Tracer.print(this);
         }
 
-        public void printToString() {
-            Tracer.printToString(this);
+        public String printToString() {
+            return Tracer.printToString(this);
         }
 
-        public void printToString(Object msg) {
+        public String printToString(Object msg) {
             this.msg = msg;
-            Tracer.printToString(this);
+            return Tracer.printToString(this);
         }
 
         public void printCallerChanges() {
