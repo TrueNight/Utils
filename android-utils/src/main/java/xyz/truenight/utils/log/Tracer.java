@@ -123,6 +123,27 @@ public class Tracer {
         print(Log.LogLevel.D, steInfo, false, dumpClass.get(), msg);
     }
 
+    public static String printToString() {
+        if (!isPrintToLog.get()) return "";
+        int depth = 1;
+        String steInfo = Tracer.getSteInfo(depth, 0);
+        return printToString(steInfo, false, null, null);
+    }
+
+    public static String printToString(Object... msg) {
+        if (!isPrintToLog.get()) return "";
+        int depth = 1;
+        String steInfo = Tracer.getSteInfo(depth, 0);
+        return printToString(steInfo, false, dumpClass.get(), msg);
+    }
+
+    public static String printToString(Object msg) {
+        if (!isPrintToLog.get()) return "";
+        int depth = 1;
+        String steInfo = Tracer.getSteInfo(depth, 0);
+        return printToString(steInfo, false, dumpClass.get(), msg);
+    }
+
     public static void e(String msg) {
         Tracer.config().depthOffset(1).logLevel(Log.LogLevel.E).print(msg);
     }
@@ -171,6 +192,22 @@ public class Tracer {
         }
     }
 
+    private static String printToString(Builder builder) {
+        if (!isPrintToLog.get()) return "";
+
+        String steInfo = Tracer.getSteInfo(builder.depth, 2 + builder.depthOffset);
+
+        if (builder.printCallerChanges) {
+            String key = firstLine(steInfo);
+            synchronized (S_CONCURRENT_MAP) {
+                if (S_CONCURRENT_MAP.compare(key, steInfo)) return "";
+                S_CONCURRENT_MAP.put(key, steInfo);
+            }
+        }
+
+        return printToString(steInfo, builder.threadInfo, builder.dump, builder.msg);
+    }
+
     public static String firstLine(String string) {
         if (string == null) return null;
         final int nextLineIndex = string.indexOf('\n');
@@ -209,6 +246,24 @@ public class Tracer {
         }
 
         logImpl.get().log(logLevel, TRACER, sb.toString());
+    }
+
+    private static String printToString(String steInfo, boolean printThreadInfo, Class<?> dump, Object msg) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(steInfo);
+
+        if (printThreadInfo) {
+            final Thread currentThread = Thread.currentThread();
+            sb.append(" tid = ").append(currentThread.getId()).append(" tname = ");
+            sb.append(currentThread.getName());
+        }
+
+        if (msg != null) {
+            sb.append(" ").append(dump != null ? dump(dump, msg) : msg.toString());
+        }
+
+        return sb.toString();
     }
 
     private static String dump(Class<?> dump, Object obj) {
@@ -283,6 +338,15 @@ public class Tracer {
         public void print(Object msg) {
             this.msg = msg;
             Tracer.print(this);
+        }
+
+        public void printToString() {
+            Tracer.printToString(this);
+        }
+
+        public void printToString(Object msg) {
+            this.msg = msg;
+            Tracer.printToString(this);
         }
 
         public void printCallerChanges() {
