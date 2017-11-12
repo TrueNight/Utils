@@ -814,6 +814,19 @@ public class Utils {
     }
 
     /**
+     * Sorts the given list in ascending natural order. The algorithm is
+     * stable which means equal elements don't get reordered.
+     *
+     * @throws ClassCastException if any element does not implement {@code Comparable},
+     *                            or if {@code compareTo} throws for any pair of elements.
+     */
+    public static <T extends Comparable<? super T>> List<T> sorted(List<T> list) {
+        List<T> result = new ArrayList<>(list);
+        Collections.sort(result);
+        return result;
+    }
+
+    /**
      * Sorts the given list using the given comparator. The algorithm is
      * stable which means equal elements don't get reordered.
      *
@@ -1451,6 +1464,13 @@ public class Utils {
      */
     public static boolean startsWith(String string, String prefix) {
         return isEmpty(string) && isEmpty(prefix) || string != null && string.startsWith(prefix);
+    }
+
+    /**
+     * NULL safe contains()
+     */
+    public static boolean contains(String string, String value) {
+        return safe(string).contains(value);
     }
 
     /**
