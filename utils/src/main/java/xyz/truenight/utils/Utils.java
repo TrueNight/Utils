@@ -386,6 +386,103 @@ public class Utils {
     }
 
     /**
+     * @return FIRST element of list or FALSE if list is empty
+     */
+    public static boolean[] first(int count, boolean[] list) {
+        return isEmpty(list) ? new boolean[0] : Arrays.copyOfRange(list, 0, count);
+    }
+
+    /**
+     * @return FIRST element of list or 0 if list is empty
+     */
+    public static byte[] first(int count, byte[] list) {
+        return isEmpty(list) ? new byte[0] : Arrays.copyOfRange(list, 0, count);
+    }
+
+    /**
+     * @return FIRST element of list or 0 if list is empty
+     */
+    public static char[] first(int count, char[] list) {
+        return isEmpty(list) ? new char[0] : Arrays.copyOfRange(list, 0, count);
+    }
+
+    /**
+     * @return FIRST element of list or 0 if list is empty
+     */
+    public static double[] first(int count, double[] list) {
+        return isEmpty(list) ? new double[0] : Arrays.copyOfRange(list, 0, count);
+    }
+
+    /**
+     * @return FIRST element of list or 0 if list is empty
+     */
+    public static float[] first(int count, float[] list) {
+        return isEmpty(list) ? new float[0] : Arrays.copyOfRange(list, 0, count);
+    }
+
+    /**
+     * @return FIRST element of list or 0 if list is empty
+     */
+    public static int[] first(int count, int[] list) {
+        return isEmpty(list) ? new int[0] : Arrays.copyOfRange(list, 0, count);
+    }
+
+    /**
+     * @return FIRST element of list or 0 if list is empty
+     */
+    public static long[] first(int count, long[] list) {
+        return isEmpty(list) ? new long[0] : Arrays.copyOfRange(list, 0, count);
+    }
+
+    /**
+     * @return FIRST element of list or 0 if list is empty
+     */
+    public static short[] first(int count, short[] list) {
+        return isEmpty(list) ? new short[0] : Arrays.copyOfRange(list, 0, count);
+    }
+
+    /**
+     * @return FIRST element of list or NULL if list is empty
+     */
+    public static <T> List<T> first(int count, List<T> list) {
+        return isEmpty(list) ? Collections.<T>emptyList() : new ArrayList<>(list.subList(0, Math.min(list.size(), count)));
+    }
+
+    /**
+     * @return FIRST element of list or NULL if list is empty
+     */
+    public static <T> Collection<T> first(int count, Collection<T> list) {
+        if (isEmpty(list)) {
+            return Collections.emptyList();
+        }
+        ArrayList<T> result = new ArrayList<>();
+        int i = 0;
+        Iterator<T> iterator = list.iterator();
+        while (i < count && iterator.hasNext()) {
+            result.add(iterator.next());
+            i++;
+        }
+        return result;
+    }
+
+    /**
+     * @return FIRST element of list or NULL if list is empty
+     */
+    public static <T> Iterable<T> first(int count, Iterable<T> list) {
+        if (isEmpty(list)) {
+            return Collections.emptyList();
+        }
+        ArrayList<T> result = new ArrayList<>();
+        int i = 0;
+        Iterator<T> iterator = list.iterator();
+        while (i < count && iterator.hasNext()) {
+            result.add(iterator.next());
+            i++;
+        }
+        return result;
+    }
+
+    /**
      * @return TRUE if element on FIRST position of list or FALSE otherwise
      */
     public static <T> boolean isFirst(List<T> list, Object item) {
