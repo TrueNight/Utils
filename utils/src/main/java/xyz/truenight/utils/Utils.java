@@ -1123,7 +1123,7 @@ public class Utils {
     /**
      * Removes items which not accepted by filter
      */
-    public static <T> void filter(Collection<T> data, Filter<T> filter) {
+    public static <T> Collection<T> filter(Collection<T> data, Filter<T> filter) {
         if (!Utils.isEmpty(data)) {
             Iterator<T> iterator = data.iterator();
             while (iterator.hasNext()) {
@@ -1133,6 +1133,7 @@ public class Utils {
                 }
             }
         }
+        return data;
     }
 
     /**
