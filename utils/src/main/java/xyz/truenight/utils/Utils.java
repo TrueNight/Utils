@@ -386,70 +386,70 @@ public class Utils {
     }
 
     /**
-     * @return FIRST element of list or FALSE if list is empty
+     * @return FIRST elements of list
      */
     public static boolean[] first(int count, boolean[] list) {
         return isEmpty(list) ? new boolean[0] : Arrays.copyOfRange(list, 0, count);
     }
 
     /**
-     * @return FIRST element of list or 0 if list is empty
+     * @return FIRST elements of list
      */
     public static byte[] first(int count, byte[] list) {
         return isEmpty(list) ? new byte[0] : Arrays.copyOfRange(list, 0, count);
     }
 
     /**
-     * @return FIRST element of list or 0 if list is empty
+     * @return FIRST elements of list
      */
     public static char[] first(int count, char[] list) {
         return isEmpty(list) ? new char[0] : Arrays.copyOfRange(list, 0, count);
     }
 
     /**
-     * @return FIRST element of list or 0 if list is empty
+     * @return FIRST elements of list
      */
     public static double[] first(int count, double[] list) {
         return isEmpty(list) ? new double[0] : Arrays.copyOfRange(list, 0, count);
     }
 
     /**
-     * @return FIRST element of list or 0 if list is empty
+     * @return FIRST elements of list
      */
     public static float[] first(int count, float[] list) {
         return isEmpty(list) ? new float[0] : Arrays.copyOfRange(list, 0, count);
     }
 
     /**
-     * @return FIRST element of list or 0 if list is empty
+     * @return FIRST elements of list
      */
     public static int[] first(int count, int[] list) {
         return isEmpty(list) ? new int[0] : Arrays.copyOfRange(list, 0, count);
     }
 
     /**
-     * @return FIRST element of list or 0 if list is empty
+     * @return FIRST elements of list
      */
     public static long[] first(int count, long[] list) {
         return isEmpty(list) ? new long[0] : Arrays.copyOfRange(list, 0, count);
     }
 
     /**
-     * @return FIRST element of list or 0 if list is empty
+     * @return FIRST elements of list
      */
     public static short[] first(int count, short[] list) {
         return isEmpty(list) ? new short[0] : Arrays.copyOfRange(list, 0, count);
     }
 
     /**
-     * @return FIRST element of list or NULL if list is empty
+     * @return FIRST elements of list
      */
     public static <T> List<T> first(int count, List<T> list) {
         return isEmpty(list) ? Collections.<T>emptyList() : new ArrayList<>(list.subList(0, Math.min(list.size(), count)));
     }
 
     /**
-     * @return FIRST element of list or NULL if list is empty
+     * @return FIRST elements of list
      */
     public static <T> Collection<T> first(int count, Collection<T> list) {
         if (isEmpty(list)) {
@@ -466,7 +466,7 @@ public class Utils {
     }
 
     /**
-     * @return FIRST element of list or NULL if list is empty
+     * @return FIRST elements of list
      */
     public static <T> Iterable<T> first(int count, Iterable<T> list) {
         if (isEmpty(list)) {
@@ -480,6 +480,51 @@ public class Utils {
             i++;
         }
         return result;
+    }
+
+    /**
+     * @return FIRST element accepted by filter
+     */
+    public static <T> T first(List<T> list, Filter<T> filter) {
+        if (isEmpty(list)) {
+            return null;
+        }
+        for (T t : list) {
+            if (filter.accept(t)) {
+                return t;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @return FIRST element accepted by filter
+     */
+    public static <T> T first(Collection<T> list, Filter<T> filter) {
+        if (isEmpty(list)) {
+            return null;
+        }
+        for (T t : list) {
+            if (filter.accept(t)) {
+                return t;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @return FIRST element accepted by filter
+     */
+    public static <T> T first(Iterable<T> list, Filter<T> filter) {
+        if (isEmpty(list)) {
+            return null;
+        }
+        for (T t : list) {
+            if (filter.accept(t)) {
+                return t;
+            }
+        }
+        return null;
     }
 
     /**
