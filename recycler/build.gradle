@@ -3,7 +3,7 @@ apply plugin: 'com.android.library'
 ext {
     bintrayRepo = 'maven'
 
-    libraryVersion = '1.0.4'
+    libraryVersion = '1.0.5'
 
     bintrayName = 'recycler-utils'
     libraryName = 'Recycler'
