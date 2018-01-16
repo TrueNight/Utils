@@ -45,7 +45,7 @@ public class NoBlinksItemAnimator extends SimpleItemAnimator {
     private ArrayList<ViewHolder> mMoveAnimations = new ArrayList<>();
     private ArrayList<ViewHolder> mRemoveAnimations = new ArrayList<>();
     private ArrayList<ViewHolder> mChangeAnimations = new ArrayList<>();
-    private TimeInterpolator mDefaultInterpolator;
+    private static TimeInterpolator sDefaultInterpolator;
 
     private static class MoveInfo {
         public ViewHolder holder;
@@ -520,10 +520,10 @@ public class NoBlinksItemAnimator extends SimpleItemAnimator {
     }
 
     private void clearInterpolator(View view) {
-        if (mDefaultInterpolator == null) {
-            mDefaultInterpolator = new ValueAnimator().getInterpolator();
+        if (sDefaultInterpolator == null) {
+            sDefaultInterpolator = new ValueAnimator().getInterpolator();
         }
-        view.animate().setInterpolator(mDefaultInterpolator);
+        view.animate().setInterpolator(sDefaultInterpolator);
     }
 
     @Override
