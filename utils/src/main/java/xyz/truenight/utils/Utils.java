@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 import xyz.truenight.utils.interfaces.Filter;
+import xyz.truenight.utils.interfaces.Function;
 
 import static java.lang.Math.abs;
 
@@ -1260,6 +1261,19 @@ public class Utils {
             parts.add(new ArrayList<>(list.subList(i, Math.min(size, i + length))));
         }
         return parts;
+    }
+
+    /**
+     * Map function
+     */
+    public static <T, R> List<R> map(Iterable<T> data, Function<T, R> function) {
+        List<R> list = new ArrayList<>();
+        if (!Utils.isEmpty(data)) {
+            for (T item : data) {
+                list.add(function.apply(item));
+            }
+        }
+        return list;
     }
 
     /**
