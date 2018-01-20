@@ -43,6 +43,7 @@ public class MemoryCache<K, V> implements Map<K, V> {
     }
 
     public boolean containsKey(Object key) {
+        clearUnused();
         return (key == null && Utils.unwrap(NULL_KEY) != null) || MAP.containsKey(key);
     }
 
