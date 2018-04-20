@@ -1,0 +1,61 @@
+apply plugin: 'com.android.library'
+
+ext {
+    bintrayRepo = 'maven'
+
+    libraryVersion = '1.0.1'
+
+    bintrayName = 'safe-typeface'
+    libraryName = 'Safe Typeface'
+    artifact = 'safe-typeface'
+    libraryDescription = 'Flyweight implementation for Android Typeface to prevent memory leaks'
+
+    publishedGroupId = 'xyz.truenight.utils'
+
+    siteUrl = 'https://github.com/TrueNight/Utils'
+    gitUrl = 'https://github.com/TrueNight/Utils.git'
+
+    developerId = 'TrueNight'
+    developerName = 'Mikhail Frolov'
+    developerEmail = 'true_night@outlook.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
+
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+}
+
+apply from: '../install.gradle'
+apply from: '../bintray.gradle'
