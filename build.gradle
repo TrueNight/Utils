@@ -2,10 +2,11 @@
 
 buildscript {
     repositories {
+        google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.1'
+        classpath 'com.android.tools.build:gradle:3.1.1'
 
         classpath 'com.uphyca.gradle:gradle-android-aspectj-plugin:0.9.14'
 
@@ -18,7 +19,9 @@ buildscript {
 
 allprojects {
     repositories {
+        google()
         jcenter()
+        maven { url "https://dl.bintray.com/truenight/maven" }
     }
 }
 
