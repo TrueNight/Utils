@@ -1175,7 +1175,7 @@ public class Utils {
      * @return union of collections
      */
     @SafeVarargs
-    public static <T> Collection<T> union(Collection<T>... what) {
+    public static <T> List<T> union(Collection<T>... what) {
         HashSet<T> list = new HashSet<>();
         for (Collection<T> ts : what) {
             list.addAll(ts);
@@ -1187,9 +1187,9 @@ public class Utils {
      * @return concatenation of collections
      */
     @SafeVarargs
-    public static <T> Collection<T> concatenate(Collection<T>... what) {
-        Collection<T> list = new ArrayList<>();
-        for (Collection<T> ts : what) {
+    public static <T> List<T> concatenate(Collection<? extends T>... what) {
+        List<T> list = new ArrayList<>();
+        for (Collection<? extends T> ts : what) {
             list.addAll(ts);
         }
         return list;
@@ -1277,6 +1277,20 @@ public class Utils {
     }
 
     /**
+     * Returns first item which accepted by filter
+     */
+    public static <T> T find(Collection<T> data, Filter<T> filter) {
+        if (isNotEmpty(data)) {
+            for (T item : data) {
+                if (filter.accept(item)) {
+                    return item;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * Removes items which not accepted by filter
      */
     public static <T> Collection<T> filter(Collection<T> data, Filter<T> filter) {
@@ -1293,7 +1307,7 @@ public class Utils {
     }
 
     /**
-     * Removes items which not accepted by filter
+     * Returns new List without items which not accepted by filter
      */
     public static <T> List<T> filtered(Collection<T> data, Filter<T> filter) {
         List<T> list = new ArrayList<>();
