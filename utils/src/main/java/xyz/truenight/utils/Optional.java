@@ -42,6 +42,10 @@ public final class Optional<T> {
         }
     }
 
+    public T getNullable() {
+        return this.value;
+    }
+
     public boolean isPresent() {
         return this.value != null;
     }
