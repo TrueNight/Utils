@@ -1139,7 +1139,7 @@ public class Utils {
     /**
      * NULL safe putAll()
      */
-    public static <K, V> void putAll(Map<K, V> to, Map<K, V> from) {
+    public static <K, V> void putAll(Map<K, V> to, Map<? extends K, ? extends V> from) {
         if (to != null && from != null) {
             to.putAll(from);
         }

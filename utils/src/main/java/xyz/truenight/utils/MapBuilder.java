@@ -46,12 +46,12 @@ public class MapBuilder<K, V> {
         return this;
     }
 
-    public MapBuilder<K, V> putAll(Map<K, V> from) {
+    public MapBuilder<K, V> putAll(Map<? extends K, ? extends V> from) {
         Utils.putAll(map, from);
         return this;
     }
 
-    public MapBuilder<K, V> putAllIf(boolean condition, Map<K, V> from) {
+    public MapBuilder<K, V> putAllIf(boolean condition, Map<? extends K, ? extends V> from) {
         if (condition) {
             Utils.putAll(map, from);
         }
