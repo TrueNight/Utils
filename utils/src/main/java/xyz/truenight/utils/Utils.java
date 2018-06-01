@@ -664,6 +664,28 @@ public class Utils {
     }
 
     /**
+     * @return List without FIRST element if is not empty
+     */
+    public static <T> List<T> removeFirst(List<T> list) {
+        if (isEmpty(list)) {
+            return list;
+        }
+        list.remove(0);
+        return list;
+    }
+
+    /**
+     * @return list without LAST element if is not empty
+     */
+    public static <T> List<T> removeLast(List<T> list) {
+        if (isEmpty(list)) {
+            return list;
+        }
+        list.remove(list.size() - 1);
+        return list;
+    }
+
+    /**
      * NULL safe isEmpty()
      */
     public static boolean isEmpty(boolean[] array) {
