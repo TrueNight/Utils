@@ -30,6 +30,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import xyz.truenight.utils.interfaces.Filter;
 import xyz.truenight.utils.interfaces.Function;
+import xyz.truenight.utils.interfaces.Supplier;
 
 import static java.lang.Math.abs;
 
@@ -48,6 +49,24 @@ public class Utils {
 
     public static boolean check(int value, int mask) {
         return (value & mask) != 0;
+    }
+
+    /**
+     * @return <tt>value</tt> if there is NO exceptions while getting value - <tt>null</tt> in other ways
+     */
+    public static <T> T safe(Supplier<T> supplier) {
+        return safe(supplier, null);
+    }
+
+    /**
+     * @return <tt>value</tt> if there is NO exceptions while getting value - <tt>defValue</tt> in other ways
+     */
+    public static <T> T safe(Supplier<T> supplier, T defValue) {
+        try {
+            return supplier.get();
+        } catch (Throwable throwable) {
+            return defValue;
+        }
     }
 
     /**
@@ -1007,7 +1026,7 @@ public class Utils {
     /**
      * @return list with items
      */
-    public static <T> List<T> add(T... what) {
+    public static <T> List<T> list(T... what) {
         if (what == null) return new ArrayList<T>();
         List<T> data = new ArrayList<T>(what.length);
         Collections.addAll(data, what);
@@ -1017,7 +1036,7 @@ public class Utils {
     /**
      * @return list with items
      */
-    public static <T> List<T> addNotNull(T... what) {
+    public static <T> List<T> listNotNull(T... what) {
         List<T> data = new ArrayList<T>();
         if (what == null) return data;
         for (T t : what) {
@@ -1026,6 +1045,20 @@ public class Utils {
             }
         }
         return data;
+    }
+
+    /**
+     * @return list with items
+     */
+    public static <T> List<T> add(T... what) {
+        return list(what);
+    }
+
+    /**
+     * @return list with items
+     */
+    public static <T> List<T> addNotNull(T... what) {
+        return listNotNull(what);
     }
 
     /**
