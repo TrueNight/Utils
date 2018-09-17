@@ -16,6 +16,9 @@
 
 package xyz.truenight.utils;
 
+import java.lang.ref.Reference;
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.WeakReference;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,7 +33,7 @@ public class MemoryCache<K, V> implements Map<K, V> {
     private CacheReference<V> NULL_KEY;
 
     public V get(Object key) {
-        clearUnused();
+//        clearUnused();
         return key == null ? getKeyNull() : Utils.unwrap(MAP.get(key));
     }
 
@@ -43,22 +46,21 @@ public class MemoryCache<K, V> implements Map<K, V> {
     }
 
     public boolean containsKey(Object key) {
-        clearUnused();
+//        clearUnused();
         return (key == null && Utils.unwrap(NULL_KEY) != null) || MAP.containsKey(key);
     }
 
     public boolean containsValue(Object value) {
-        return Utils.equal(getKeyNull(), value) || MAP.containsValue(reference(value));
+        return Utils.equal(getKeyNull(), value) || MAP.containsValue(new CacheReference<>(value));
     }
 
     public V put(K key, V value) {
-        // TODO: 05/09/16 check memory
         return key == null ?
                 getAndSetKeyNull(value) :
-                (
-                        value == null ?
-                                Utils.unwrap(MAP.remove(key)) :
-                                Utils.unwrap(MAP.put(key, reference(value)))
+                Utils.unwrap(
+//                        value == null ?
+//                                MAP.remove(key) :
+                        MAP.put(key, reference(key, value))
                 );
     }
 
@@ -79,7 +81,7 @@ public class MemoryCache<K, V> implements Map<K, V> {
 
     @Override
     public Set<K> keySet() {
-        clearUnused();
+//        clearUnused();
         HashSet<K> set = new HashSet<>();
         if (getKeyNull() != null) {
             set.add(null);
@@ -90,7 +92,7 @@ public class MemoryCache<K, V> implements Map<K, V> {
 
     @Override
     public Collection<V> values() {
-        clearUnused();
+//        clearUnused();
         ArrayList<V> list = new ArrayList<>();
         if (getKeyNull() != null) {
             list.add(getKeyNull());
@@ -103,7 +105,7 @@ public class MemoryCache<K, V> implements Map<K, V> {
 
     @Override
     public Set<Entry<K, V>> entrySet() {
-        clearUnused();
+//        clearUnused();
         HashSet<Entry<K, V>> set = new HashSet<>();
         if (getKeyNull() != null) {
             set.add(new AbstractMap.SimpleEntry<K, V>(null, getKeyNull()));
@@ -114,20 +116,20 @@ public class MemoryCache<K, V> implements Map<K, V> {
         return set;
     }
 
-    public void clearUnused() {
-        if (getKeyNull() == null) {
-            NULL_KEY = null;
-        }
-        for (K key : MAP.keySet()) {
-            if (Utils.unwrap(MAP.get(key)) == null) {
-                MAP.remove(key);
-            }
-        }
-    }
+//    public void clearUnused() {
+//        if (getKeyNull() == null) {
+//            NULL_KEY = null;
+//        }
+//        for (K key : MAP.keySet()) {
+//            if (Utils.unwrap(MAP.get(key)) == null) {
+//                MAP.remove(key);
+//            }
+//        }
+//    }
 
     public boolean compare(K key, V value) {
         Object storedValue = get(key);
-        return storedValue == null ? value == null : storedValue.equals(reference(value));
+        return storedValue == null ? value == null : storedValue.equals(value);
     }
 
     private V getKeyNull() {
@@ -135,14 +137,14 @@ public class MemoryCache<K, V> implements Map<K, V> {
     }
 
     private void setKeyNull(V value) {
-        NULL_KEY = reference(value);
+        NULL_KEY = reference(null, value);
     }
 
-    private <T> CacheReference<T> reference(T value) {
+    private CacheReference<V> reference(K key, V value) {
         if (value == null) {
             return null;
         } else {
-            return new CacheReference<>(value);
+            return ReferenceCollector.createRef(key, value, this);
         }
     }
 
@@ -150,5 +152,55 @@ public class MemoryCache<K, V> implements Map<K, V> {
         V object = getKeyNull();
         setKeyNull(value);
         return object;
+    }
+
+    static class ReferenceCollector {
+
+        static final ReferenceQueue<Object> QUEUE = new ReferenceQueue<>();
+        static PollReferenceThread thread;
+
+        /**
+         * Creates a {@link WeakReference} that will unregister when the reference gets collected.
+         */
+        static <K, V> CacheReference<V> createRef(K key, V adapter, Map<K, V> items) {
+            if (thread == null || !thread.isAlive()) {
+                thread = new PollReferenceThread();
+                thread.start();
+            }
+            return new RegisteredReference<>(adapter, items, key);
+        }
+
+
+        private static class PollReferenceThread extends Thread {
+
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Reference<?> ref = QUEUE.remove();
+                        if (ref instanceof RegisteredReference) {
+                            ((RegisteredReference) ref).unregister();
+                        }
+                    } catch (InterruptedException e) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        static class RegisteredReference<T, A> extends CacheReference<A> {
+            private final Map<T, A> items;
+            private final T key;
+
+            RegisteredReference(A referent, Map<T, A> items, T key) {
+                super(referent, QUEUE);
+                this.items = items;
+                this.key = key;
+            }
+
+            void unregister() {
+                items.remove(key);
+            }
+        }
     }
 }
