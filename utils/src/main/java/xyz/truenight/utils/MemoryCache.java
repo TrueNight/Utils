@@ -33,7 +33,6 @@ public class MemoryCache<K, V> implements Map<K, V> {
     private CacheReference<V> NULL_KEY;
 
     public V get(Object key) {
-//        clearUnused();
         return key == null ? getKeyNull() : Utils.unwrap(MAP.get(key));
     }
 
@@ -46,7 +45,6 @@ public class MemoryCache<K, V> implements Map<K, V> {
     }
 
     public boolean containsKey(Object key) {
-//        clearUnused();
         return (key == null && Utils.unwrap(NULL_KEY) != null) || MAP.containsKey(key);
     }
 
@@ -58,8 +56,7 @@ public class MemoryCache<K, V> implements Map<K, V> {
         return key == null ?
                 getAndSetKeyNull(value) :
                 Utils.unwrap(
-//                        value == null ?
-//                                MAP.remove(key) :
+                        value == null ? MAP.remove(key) :
                         MAP.put(key, reference(key, value))
                 );
     }
@@ -81,7 +78,6 @@ public class MemoryCache<K, V> implements Map<K, V> {
 
     @Override
     public Set<K> keySet() {
-//        clearUnused();
         HashSet<K> set = new HashSet<>();
         if (getKeyNull() != null) {
             set.add(null);
@@ -92,7 +88,6 @@ public class MemoryCache<K, V> implements Map<K, V> {
 
     @Override
     public Collection<V> values() {
-//        clearUnused();
         ArrayList<V> list = new ArrayList<>();
         if (getKeyNull() != null) {
             list.add(getKeyNull());
@@ -105,7 +100,6 @@ public class MemoryCache<K, V> implements Map<K, V> {
 
     @Override
     public Set<Entry<K, V>> entrySet() {
-//        clearUnused();
         HashSet<Entry<K, V>> set = new HashSet<>();
         if (getKeyNull() != null) {
             set.add(new AbstractMap.SimpleEntry<K, V>(null, getKeyNull()));
@@ -115,17 +109,6 @@ public class MemoryCache<K, V> implements Map<K, V> {
         }
         return set;
     }
-
-//    public void clearUnused() {
-//        if (getKeyNull() == null) {
-//            NULL_KEY = null;
-//        }
-//        for (K key : MAP.keySet()) {
-//            if (Utils.unwrap(MAP.get(key)) == null) {
-//                MAP.remove(key);
-//            }
-//        }
-//    }
 
     public boolean compare(K key, V value) {
         Object storedValue = get(key);
