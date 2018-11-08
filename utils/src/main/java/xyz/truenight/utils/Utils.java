@@ -301,6 +301,19 @@ public class Utils {
     }
 
     /**
+     * NULL safe contains()
+     */
+    public static <T, R> boolean contains(Collection<T> data, R what, Function<T, R> function) {
+        if (data == null) return false;
+        for (T o : data) {
+            if (Utils.equal(function.apply(o), what)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * NULL safe containsAll()
      */
     public static boolean containsAll(Collection<?> data, Collection<?> what) {
