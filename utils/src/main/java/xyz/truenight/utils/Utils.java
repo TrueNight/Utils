@@ -1252,10 +1252,32 @@ public class Utils {
     }
 
     /**
+     * @return union of collections
+     */
+    public static <T> List<T> union(Iterable<? extends Collection<T>> what) {
+        HashSet<T> list = new HashSet<>();
+        for (Collection<T> ts : what) {
+            list.addAll(ts);
+        }
+        return new ArrayList<>(list);
+    }
+
+    /**
      * @return concatenation of collections
      */
     @SafeVarargs
     public static <T> List<T> concatenate(Collection<? extends T>... what) {
+        List<T> list = new ArrayList<>();
+        for (Collection<? extends T> ts : what) {
+            list.addAll(ts);
+        }
+        return list;
+    }
+
+    /**
+     * @return concatenation of collections
+     */
+    public static <T> List<T> concatenate(Iterable<? extends Collection<? extends T>> what) {
         List<T> list = new ArrayList<>();
         for (Collection<? extends T> ts : what) {
             list.addAll(ts);
