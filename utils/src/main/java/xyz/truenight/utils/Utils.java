@@ -1779,6 +1779,26 @@ public class Utils {
     /**
      * Returns a string containing the tokens joined.
      *
+     * @param delimiter object to insert between {@code tokens}
+     * @param tokens    an array objects to be joined
+     */
+    public static <T> List<T> join(T delimiter, List<T> tokens) {
+        List<T> sb = new ArrayList<>();
+        boolean firstTime = true;
+        for (T token : tokens) {
+            if (firstTime) {
+                firstTime = false;
+            } else {
+                sb.add(delimiter);
+            }
+            sb.add(token);
+        }
+        return sb;
+    }
+
+    /**
+     * Returns a string containing the tokens joined.
+     *
      * @param list an array objects to be joined. Strings will be formed from
      *             the objects by calling object.toString().
      */
