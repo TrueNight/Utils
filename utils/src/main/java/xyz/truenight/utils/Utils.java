@@ -1782,7 +1782,7 @@ public class Utils {
      * @param delimiter object to insert between {@code tokens}
      * @param tokens    an array objects to be joined
      */
-    public static <T> List<T> join(T delimiter, List<T> tokens) {
+    public static <T> List<T> insertBetween(T delimiter, List<T> tokens) {
         List<T> sb = new ArrayList<>();
         boolean firstTime = true;
         for (T token : tokens) {

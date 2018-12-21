@@ -1,7 +1,7 @@
 ext {
     bintrayRepo = 'maven'
 
-    libraryVersion = '2.1.10'
+    libraryVersion = '2.1.11'
 
     publishedGroupId = 'xyz.truenight.utils'
 
