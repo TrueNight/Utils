@@ -1037,6 +1037,20 @@ public class Utils {
     }
 
     /**
+     * Sorts the given list using the given comparator. The algorithm is
+     * stable which means equal elements don't get reordered.
+     *
+     * @throws ClassCastException if any element does not implement {@code Comparable},
+     *                            or if {@code compareTo} throws for any pair of elements.
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> List<T> sorted(List<T> list, Comparator<? super T> comparator) {
+        List<T> result = new ArrayList<>(list);
+        Collections.sort(result, comparator);
+        return result;
+    }
+
+    /**
      * @return list with items
      */
     public static <T> List<T> list(T... what) {
