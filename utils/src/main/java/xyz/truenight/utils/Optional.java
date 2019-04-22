@@ -5,6 +5,8 @@ import java.util.Objects;
 
 import xyz.truenight.utils.interfaces.Consumer;
 import xyz.truenight.utils.interfaces.Function;
+import xyz.truenight.utils.interfaces.NonNull;
+import xyz.truenight.utils.interfaces.Nullable;
 import xyz.truenight.utils.interfaces.Predicate;
 import xyz.truenight.utils.interfaces.Supplier;
 
@@ -18,22 +20,23 @@ public final class Optional<T> {
     }
 
     public static <T> Optional<T> empty() {
-        Optional var0 = EMPTY;
-        return var0;
+        //noinspection unchecked
+        return (Optional) EMPTY;
     }
 
     private Optional(T var1) {
         this.value = Utils.requireNonNull(var1);
     }
 
-    public static <T> Optional<T> of(T var0) {
+    public static <T> Optional<T> of(@NonNull T var0) {
         return new Optional<>(var0);
     }
 
-    public static <T> Optional<T> ofNullable(T var0) {
+    public static <T> Optional<T> ofNullable(@Nullable T var0) {
         return var0 == null ? Optional.<T>empty() : of(var0);
     }
 
+    @NonNull
     public T get() {
         if (this.value == null) {
             throw new NoSuchElementException("No value present");
@@ -42,6 +45,7 @@ public final class Optional<T> {
         }
     }
 
+    @Nullable
     public T getNullable() {
         return this.value;
     }
@@ -72,14 +76,17 @@ public final class Optional<T> {
         return !this.isPresent() ? Optional.<U>empty() : Utils.requireNonNull(var1.apply(this.value));
     }
 
+    @Nullable
     public T orElse(T var1) {
         return this.value != null ? this.value : var1;
     }
 
+    @Nullable
     public T orElseGet(Supplier<? extends T> var1) {
         return this.value != null ? this.value : var1.get();
     }
 
+    @NonNull
     public <X extends Throwable> T orElseThrow(Supplier<? extends X> var1) throws X {
         if (this.value != null) {
             return this.value;
