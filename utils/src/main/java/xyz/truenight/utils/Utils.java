@@ -478,7 +478,7 @@ public class Utils {
      * @return FIRST elements of list
      */
     public static <T> List<T> first(int count, List<T> list) {
-        return isEmpty(list) ? Collections.<T>emptyList() : new ArrayList<>(list.subList(0, Math.min(list.size(), count)));
+        return isEmpty(list) ? new ArrayList<T>() : new ArrayList<>(list.subList(0, Math.min(list.size(), count)));
     }
 
     /**
@@ -486,7 +486,7 @@ public class Utils {
      */
     public static <T> Collection<T> first(int count, Collection<T> list) {
         if (isEmpty(list)) {
-            return Collections.emptyList();
+            return new ArrayList<>();
         }
         ArrayList<T> result = new ArrayList<>();
         int i = 0;
@@ -503,7 +503,7 @@ public class Utils {
      */
     public static <T> Iterable<T> first(int count, Iterable<T> list) {
         if (isEmpty(list)) {
-            return Collections.emptyList();
+            return new ArrayList<>();
         }
         ArrayList<T> result = new ArrayList<>();
         int i = 0;
@@ -518,13 +518,12 @@ public class Utils {
     /**
      * @return FIRST element accepted by filter
      */
-    public static <T> T first(List<T> list, Filter<T> filter) {
-        if (isEmpty(list)) {
-            return null;
-        }
-        for (T t : list) {
-            if (filter.accept(t)) {
-                return t;
+    public static <T> T find(List<T> list, Filter<T> filter) {
+        if (isNotEmpty(list)) {
+            for (T t : list) {
+                if (filter.accept(t)) {
+                    return t;
+                }
             }
         }
         return null;
@@ -533,13 +532,12 @@ public class Utils {
     /**
      * @return FIRST element accepted by filter
      */
-    public static <T> T first(Collection<T> list, Filter<T> filter) {
-        if (isEmpty(list)) {
-            return null;
-        }
-        for (T t : list) {
-            if (filter.accept(t)) {
-                return t;
+    public static <T> T find(Collection<T> data, Filter<T> filter) {
+        if (isNotEmpty(data)) {
+            for (T item : data) {
+                if (filter.accept(item)) {
+                    return item;
+                }
             }
         }
         return null;
@@ -548,13 +546,12 @@ public class Utils {
     /**
      * @return FIRST element accepted by filter
      */
-    public static <T> T first(Iterable<T> list, Filter<T> filter) {
-        if (isEmpty(list)) {
-            return null;
-        }
-        for (T t : list) {
-            if (filter.accept(t)) {
-                return t;
+    public static <T> T find(Iterable<T> list, Filter<T> filter) {
+        if (isNotEmpty(list)) {
+            for (T t : list) {
+                if (filter.accept(t)) {
+                    return t;
+                }
             }
         }
         return null;
@@ -1378,20 +1375,6 @@ public class Utils {
             }
         }
         return list;
-    }
-
-    /**
-     * Returns first item which accepted by filter
-     */
-    public static <T> T find(Collection<T> data, Filter<T> filter) {
-        if (isNotEmpty(data)) {
-            for (T item : data) {
-                if (filter.accept(item)) {
-                    return item;
-                }
-            }
-        }
-        return null;
     }
 
     /**
